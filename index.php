@@ -13,36 +13,51 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
+    <link href="css/text.css" rel='stylesheet' type='text/css'>
     <title>LOGIN DE ALUMNOS</title>
 </head>
 
 <body onload="limpiar();">
     <div class="container">
-        <div class="card">
-            <div class="card-header bg-info">
-                <h3 class="text-white text-center">LOGIN DE ALUMNOS</h3>
+        <div class="frame">
+            <div class="nav">
+                <ul class"links">
+                    <li class="signin-active"><a class="btn">Sign in</a></li>
+                    <li class="signup-inactive"><a class="btn">Sign up </a></li>
+                </ul>
             </div>
-            <div class="card-body">
-                <form name="form" action="verificar.php" method="post">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="user">USUARIO</label>
-                            <input type="text" name="user" class="form-control" placeholder="DIGITE EL CORREO" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="passw">PASSWORD</label>
-                            <input type="password" name="passw" class="form-control" placeholder="DIGITE EL PASSWORD" required>
-                        </div>
-                            <div class="col-md-12">
-                            <br>
-                            <input type="submit" class="btn btn-primary" value="INGRESAR" >
-                        </div>
+            <div ng-app ng-init="checked = false">
+                <form class="form-signin" action="verificar.php" method="post" name="form">
+                    <label for="user">CORREO</label>
+                    <input class="form-styling" type="text" name="user" class="form-control" placeholder="DIGITE EL CORREO" required>
+                    <label for="passw">PASSWORD</label>
+                    <input class="form-styling" type="password" name="passw" class="form-control" placeholder="DIGITE EL PASSWORD" required>
+                    <div class="btn-animate">
+                        <input type="submit" class="btn-signin" value="INGRESAR">
+                    </div>
                 </form>
+
+                <form class="form-signup" action="registrar.php" method="post">
+                    <label for="correo">CORREO</label>
+                    <input class="form-styling" type="text" name="correo" placeholder="Diguite el correo" />
+                    <label for="nombre">NOMBRE</label>
+                    <input class="form-styling" type="text" name="nombre" placeholder="Diguite el nombre" required />
+                    <label for="contraseña">Password</label>
+                    <input class="form-styling" type="text" name="contraseña" placeholder="Diguite la contraseña" required />
+                    <label for="fecha_nacimiento">FECHA DE NACIMIENTO</label>
+                    <input class="form-styling" type="date" name="fecha_nacimiento" required />
+                    <label for="telefono">TELEFONO</label>
+                    <input class="form-styling" type="text" name="telefono" placeholder="Diguite el telefono" required />
+                    <input type="submit" class="btn-signin" value="REGISTRAR" >
+                </form>
+
             </div>
-        </div>
+
+            <div class="forgot">
+                <a href="#">Forgot your password?</a>
+            </div>
     </div>
     </div>
-</div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -50,6 +65,7 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./sw/dist/sweetalert2.min.js"></script>
     <script src="./js/jquery-3.6.1.min.js"></script>
+    <script src="./js/indes.js"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
