@@ -11,29 +11,116 @@
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./sw/dist/sweetalert2.min.css">
     <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
-   
+
     <title>ALUMNOS</title>
 </head>
 
 <body>
     <?php
-class Conectar{
-    public static function conec(){
-        $host="localhost";
-        $user="root";
-        $pass="123456";
-        $db_name="bd_aerea";
-        //conectarnos a la BD
-        $link=mysqli_connect($host,$user,$pass) 
-         or die ("ERROR Al conectar la BD".mysqli_error($link));
-         //seleccionar la BD
-         mysqli_select_db($link,$db_name) 
-          or die ("ERROR Al seleccionar la BD".mysqli_error($link));
-          return $link;
-    }   
-}
-?>
-<!--  -->
+    class Conectar
+    {
+        public static function conec()
+        {
+            $host = "localhost";
+            $user = "root";
+            $pass = "123456";
+            $db_name = "bd_aerea";
+            //conectarnos a la BD
+            $link = mysqli_connect($host, $user, $pass)
+                or die("ERROR Al conectar la BD" . mysqli_error($link));
+            //seleccionar la BD
+            mysqli_select_db($link, $db_name)
+                or die("ERROR Al seleccionar la BD" . mysqli_error($link));
+            return $link;
+        }
+    }
+    class Personal
+    {
+        private $pers;
+
+        public function __construct()
+        {
+            $this->pers = array();
+        }
+        public function veralp()
+        {
+            $sql = "select * from persona";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->pers[] = $row;
+            }
+            return $this->pers;
+        }
+        public function insertpers($id, $nom, $base)
+        {
+            $sql = "insert into persona values('$id','$nom','$base')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Alumno insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua.php';
+                }
+            });
+            </script>";
+        }
+        //metodo editar
+        public function editarpers($id, $nom, $base)
+        {
+            $sql = "update persona set nombre='$nom',id_base='$base' where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+           <script type='text/javascript'>
+           Swal.fire({
+              icon : 'success',
+              title : 'Operacion Exitosa!!',
+              text :  'Datos editados Correctamente'
+           }).then((result) => {
+               if(result.isConfirmed){
+                   window.location='./menua.php';
+               }
+           });
+           </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from persona where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->pers[] = $row;
+            }
+            return $this->pers;
+        }
+
+        //metodo eliminar
+        public function eliminarpers($id)
+        {
+            $sql = "delete from persona where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+           <script type='text/javascript'>
+           Swal.fire({
+              icon : 'success',
+              title : 'Operacion Exitosa!!',
+              text :  'El Alumno con id $id fue eliminado Correctamente'
+           }).then((result) => {
+               if(result.isConfirmed){
+                   window.location='./menua.php';
+               }
+           }); </script>
+           ";
+        }
+    }
+    ?>
+    <!--  -->
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
