@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
     <link href="css/text.css" rel='stylesheet' type='text/css'>
-    <title>LOGIN DE ALUMNOS</title>
+    <title>LOGIN DE COMPAÑIA AEREA</title>
 </head>
 
 <body onload="limpiar();">

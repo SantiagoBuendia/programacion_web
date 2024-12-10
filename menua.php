@@ -27,7 +27,7 @@ if ($_SESSION['usuario']) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
-    <title>LOGIN DE PERSONAL</title>
+    <title>Personal</title>
   </head>
 
   <body onload="limpiar()" ;>
@@ -40,13 +40,13 @@ if ($_SESSION['usuario']) {
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="menua_avion.php">Avion</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="menua_base.php">Base</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="menua_vuelo.php">Vuelo</a>
             </li>
           </ul>
         </div>

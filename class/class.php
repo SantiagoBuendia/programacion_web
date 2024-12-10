@@ -61,7 +61,7 @@
             Swal.fire({
                icon : 'success',
                title : 'Operacion Exitosa!!',
-               text :  'Alumno insertado Correctamente'
+               text :  'Persona insertado Correctamente'
             }).then((result) => {
                 if(result.isConfirmed){
                     window.location='./menua.php';
@@ -110,10 +110,247 @@
    Swal.fire({
       icon : 'success',
       title : 'Operacion Exitosa!!',
-      text :  'El Alumno con id $id fue eliminado Correctamente'
+      text :  'El Persona con id $id fue eliminado Correctamente'
    }).then((result) => {
        if(result.isConfirmed){
            window.location='./menua.php';
+       }
+   }); </script>
+   ";
+        }
+    }
+    class Avion
+    {
+        private $avion;
+
+        public function __construct()
+        {
+            $this->avion = array();
+        }
+        public function veravion()
+        {
+            $sql = "select * from avion";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->avion[] = $row;
+            }
+            return $this->avion;
+        }
+        public function insertavion($cod, $tip, $base)
+        {
+            $sql = "insert into avion values('$cod','$tip','$base')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Avion insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua_avion.php';
+                }
+            });
+            </script>";
+        }
+        //metodo editar
+        public function editaravion($id, $tip, $base)
+        {
+            $sql = "update avion set tipo='$tip',id_base='$base' where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+           <script type='text/javascript'>
+           Swal.fire({
+              icon : 'success',
+              title : 'Operacion Exitosa!!',
+              text :  'Datos editados Correctamente'
+           }).then((result) => {
+               if(result.isConfirmed){
+                   window.location='./menua_avion.php';
+               }
+           });
+           </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from avion where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->avion[] = $row;
+            }
+            return $this->avion;
+        }
+
+        //metodo eliminar
+        public function eliminaravion($id)
+        {
+            $sql = "delete from avion where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'El Avion con id $id fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua_avion.php';
+       }
+   }); </script>
+   ";
+        }
+    }
+    class Base
+    {
+        private $base;
+
+        public function __construct()
+        {
+            $this->base = array();
+        }
+        public function verbase()
+        {
+            $sql = "select * from base";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->base[] = $row;
+            }
+            return $this->base;
+        }
+        public function insertbase($nom)
+        {
+            $sql = "insert into base values('$nom')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Base insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua_base.php';
+                }
+            });
+            </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from base where nombre='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->base[] = $row;
+            }
+            return $this->base;
+        }
+
+        //metodo eliminar
+        public function eliminarbase($nom)
+        {
+            $sql = "delete from base where nombre='$nom'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'La Base con el nombre $nom fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua_base.php';
+       }
+   }); </script>
+   ";
+        }
+    }
+    class Vuelo
+    {
+        private $vuelo;
+
+        public function __construct()
+        {
+            $this->vuelo = array();
+        }
+        public function vervuelo()
+        {
+            $sql = "select * from vuelo";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->vuelo[] = $row;
+            }
+            return $this->vuelo;
+        }
+        public function insertvuelo($cod, $org, $dest, $hora, $fecha, $avion)
+        {
+            $sql = "insert into vuelo values('$cod','$org','$dest','$hora','$fecha','$avion')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Vuelo insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua_vuelo.php';
+                }
+            });
+            </script>";
+        }
+        //metodo editar
+        public function editarvuelo($cod, $org, $dest, $hora, $fecha, $avion)
+        {
+            $sql = "update vuelo set origen='$org',destino='$dest',hora='$hora',fecha='$fecha',id_avion='$avion' where num_vuelo='$cod'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+           <script type='text/javascript'>
+           Swal.fire({
+              icon : 'success',
+              title : 'Operacion Exitosa!!',
+              text :  'Datos editados Correctamente'
+           }).then((result) => {
+               if(result.isConfirmed){
+                   window.location='./menua_vuelo.php';
+               }
+           });
+           </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from vuelo where num_vuelo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->vuelo[] = $row;
+            }
+            return $this->vuelo;
+        }
+
+        //metodo eliminar
+        public function eliminarvuelo($id)
+        {
+            $sql = "delete from vuelo where num_vuelo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'El Vuelo con id $id fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua_vuelo.php';
        }
    }); </script>
    ";
