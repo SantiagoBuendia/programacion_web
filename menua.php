@@ -74,7 +74,7 @@ if ($_SESSION['usuario']) {
               </div>
               <div class="col-md-12">
                 <br>
-                <input type="button" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
+                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
               </div>
           </form>
         </div>
@@ -105,7 +105,7 @@ if ($_SESSION['usuario']) {
             <td align='center'>
               <button class='btn btn-warning' onclick=window.location="./editarp.php?id=<?php echo $reg[$i]['codigo']; ?>">
                 <span class="material-symbols-outlined">edit_square</span>
-                <button class='btn btn-primary' onclick="eliminar('eliminar.php?id=<?php echo $reg[$i]['codigo']; ?>">
+                <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $reg[$i]['codigo']; ?>')">
                   <span class="material-symbols-outlined">delete_sweep</span>
             </td>
 

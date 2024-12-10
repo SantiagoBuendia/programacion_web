@@ -52,9 +52,9 @@
             }
             return $this->pers;
         }
-        public function insertpers($id, $nom, $base)
+        public function insertpers($cod, $nom, $base)
         {
-            $sql = "insert into persona values('$id','$nom','$base')";
+            $sql = "insert into persona values('$cod','$nom','$base')";
             $res = mysqli_query(Conectar::conec(), $sql);
             echo "
             <script type='text/javascript'>
@@ -106,17 +106,17 @@
             $sql = "delete from persona where codigo='$id'";
             $res = mysqli_query(Conectar::conec(), $sql);
             echo "
-           <script type='text/javascript'>
-           Swal.fire({
-              icon : 'success',
-              title : 'Operacion Exitosa!!',
-              text :  'El Alumno con id $id fue eliminado Correctamente'
-           }).then((result) => {
-               if(result.isConfirmed){
-                   window.location='./menua.php';
-               }
-           }); </script>
-           ";
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'El Alumno con id $id fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua.php';
+       }
+   }); </script>
+   ";
         }
     }
     ?>
