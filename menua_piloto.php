@@ -54,6 +54,9 @@ if ($_SESSION['usuario']) {
                         <li class="nav-item">
                             <a class="nav-link" href="menua_miembro.php">Miembro</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="menua_informacion.php">Informacion</a>
+                        </li>
                     </ul>
                 </div>
             </div>

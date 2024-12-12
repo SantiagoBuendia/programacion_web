@@ -401,7 +401,7 @@
             if ($row = mysqli_fetch_assoc($res)) {
                 $this->piloto[] = $row;
             }
-            return $this->piloto ;
+            return $this->piloto;
         }
 
         //metodo eliminar
@@ -468,7 +468,7 @@
             if ($row = mysqli_fetch_assoc($res)) {
                 $this->miembro[] = $row;
             }
-            return $this->miembro ;
+            return $this->miembro;
         }
 
         //metodo eliminar
@@ -488,6 +488,49 @@
        }
    }); </script>
    ";
+        }
+    }
+
+    class informacion
+    {
+        private $informacion;
+
+        public function __construct()
+        {
+            $this->informacion = array();
+        }
+        public function ver()
+        {
+            $sql = "SELECT 
+    v.num_vuelo AS NumeroDeVuelo,
+    v.origen AS Origen,
+    v.destino AS Destino,
+    v.fecha AS Fecha,
+    v.hora AS Hora,
+    a.codigo AS CodigoAvion,
+    a.tipo AS TipoAvion,
+    p.nombre AS NombrePiloto,
+    GROUP_CONCAT(DISTINCT mb.nombre SEPARATOR ', ') AS MiembrosTripulacion
+FROM 
+    vuelo v
+JOIN 
+    avion a ON v.id_avion = a.codigo
+JOIN 
+    piloto pt ON v.num_vuelo = pt.num_vuelo
+JOIN 
+    persona p ON pt.codigo = p.codigo
+LEFT JOIN 
+    miembro m ON v.num_vuelo = m.num_vuelo
+LEFT JOIN 
+    persona mb ON m.codigo = mb.codigo
+GROUP BY 
+    v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, a.codigo, a.tipo, p.nombre;";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->informacion[] = $row;
+            }
+            return $this->informacion;
         }
     }
     ?>

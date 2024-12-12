@@ -64,59 +64,43 @@ if ($_SESSION['usuario']) {
     <div class="container">
       <div class="card">
         <div class="card-header bg-info">
-          <h3 class="text-white text-center">GESTION DE PERSONAL <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
+          <h3 class="text-white text-center">GESTION DE INFORMACION <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
         </div>
-        <div class="card-body">
-          <form name="form" action="insertp.php" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="cod">CODIGO</label>
-                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL CODIGO">
-              </div>
-              <div class="col-md-6">
-                <label for="nom">NOMBRE</label>
-                <input type="text" name="nom" class="form-control" placeholder="DIGITE EL NOMBRE">
-              </div>
-              <div class="col-md-6">
-                <label for="base">BASE</label>
-                <input type="text" name="base" class="form-control" placeholder="DIGITE LA BASE">
-              </div>
-              <div class="col-md-12">
-                <br>
-                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
-              </div>
-          </form>
-        </div>
-      </div>
     </div>
     <?php
     //crear el objeto de la clas Alumnos
-    $pers = new Personal();
-    $reg = $pers->veralp();
+    $informacion = new informacion();
+    $reg = $informacion->ver();
     ?>
     <div class="table-responsive">
       <table id="pers" class="table table-bordered table-striped">
         <thead>
           <tr align="center">
-            <th>CODIGO</th>
-            <th>NOMBRE</th>
-            <th>BASE</th>
+            <th>NUMERO DE VUELO</th>
+            <th>ORIGEN</th>
+            <th>DESTINO</th>
+            <th>FECHA</th>
+            <th>HORA</th>
+            <th>CODIGO AVION</th>
+            <th>TIPO DE AVION</th>
+            <th>NOMBRE PILOTO</th>
+            <th>MIEMBRO TRIPULACION</th>
           </tr>
         </thead>
         <tbody>
           <?php
           for ($i = 0; $i < count($reg); $i++) {
             echo "<tr>
-        <td>" . $reg[$i]['codigo'] . "</td>
-        <td>" . $reg[$i]['nombre'] . "</td>
-        <td>" . $reg[$i]['id_base'] . "</td>";
+        <td>" . $reg[$i]['NumeroDeVuelo'] . "</td>
+        <td>" . $reg[$i]['Origen'] . "</td>
+        <td>" . $reg[$i]['Destino'] . "</td>
+        <td>" . $reg[$i]['Fecha'] . "</td>
+        <td>" . $reg[$i]['Hora'] . "</td>
+        <td>" . $reg[$i]['CodigoAvion'] . "</td>
+        <td>" . $reg[$i]['TipoAvion'] . "</td>
+        <td>" . $reg[$i]['NombrePiloto'] . "</td>
+        <td>" . $reg[$i]['MiembrosTripulacion'] . "</td>";
           ?>
-            <td align='center'>
-              <button class='btn btn-warning' onclick=window.location="./editarp.php?id=<?php echo $reg[$i]['codigo']; ?>">
-                <span class="material-symbols-outlined">edit_square</span>
-                <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $reg[$i]['codigo']; ?>')">
-                  <span class="material-symbols-outlined">delete_sweep</span>
-            </td>
 
             </tr>
           <?php
