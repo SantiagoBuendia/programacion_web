@@ -57,7 +57,7 @@ class Nuevo
            text :  'insertado Correctamente'
         }).then((result) => {
             if(result.isConfirmed){
-                window.location='./menuu.php';
+                window.location='./index.php';
             }
         });
         </script>";
