@@ -48,6 +48,12 @@ if ($_SESSION['usuario']) {
             <li class="nav-item">
               <a class="nav-link" href="menua_vuelo.php">Vuelo</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menua_piloto.php">Piloto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menua_miembro.php">Miembro</a>
+            </li>
           </ul>
         </div>
       </div>

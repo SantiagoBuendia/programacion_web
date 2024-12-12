@@ -356,6 +356,140 @@
    ";
         }
     }
+    class Piloto
+    {
+        private $piloto;
+
+        public function __construct()
+        {
+            $this->piloto = array();
+        }
+        public function verpiloto()
+        {
+            $sql = "select * from piloto";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->piloto[] = $row;
+            }
+            return $this->piloto;
+        }
+        public function insertpiloto($cod, $num)
+        {
+            $sql = "insert into piloto values('$cod','$num')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Piloto insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua_piloto.php';
+                }
+            });
+            </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from piloto where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->piloto[] = $row;
+            }
+            return $this->piloto ;
+        }
+
+        //metodo eliminar
+        public function eliminarpiloto($id, $num)
+        {
+            $sql = "delete from piloto where codigo='$id' and num_vuelo='$num'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'El Piloto con id $id fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua_piloto.php';
+       }
+   }); </script>
+   ";
+        }
+    }
+    class Miembro
+    {
+        private $miembro;
+
+        public function __construct()
+        {
+            $this->miembro = array();
+        }
+        public function vermiembro()
+        {
+            $sql = "select * from miembro";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            //recorrer la tabla alumnos
+            while ($row = mysqli_fetch_assoc($res)) {
+                $this->miembro[] = $row;
+            }
+            return $this->miembro;
+        }
+        public function insertmiembro($cod, $num)
+        {
+            $sql = "insert into miembro values('$cod','$num')";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+            <script type='text/javascript'>
+            Swal.fire({
+               icon : 'success',
+               title : 'Operacion Exitosa!!',
+               text :  'Miembro insertado Correctamente'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='./menua_miembro.php';
+                }
+            });
+            </script>";
+        }
+
+        //metodo para trar el id del alumno
+
+        public function get_ida($id)
+        {
+            $sql = "select * from miembro where codigo='$id'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            if ($row = mysqli_fetch_assoc($res)) {
+                $this->miembro[] = $row;
+            }
+            return $this->miembro ;
+        }
+
+        //metodo eliminar
+        public function eliminarmiembro($id, $num)
+        {
+            $sql = "delete from miembro where codigo='$id' and num_vuelo='$num'";
+            $res = mysqli_query(Conectar::conec(), $sql);
+            echo "
+   <script type='text/javascript'>
+   Swal.fire({
+      icon : 'success',
+      title : 'Operacion Exitosa!!',
+      text :  'El Miembro con id $id fue eliminado Correctamente'
+   }).then((result) => {
+       if(result.isConfirmed){
+           window.location='./menua_miembro.php';
+       }
+   }); </script>
+   ";
+        }
+    }
     ?>
     <!--  -->
     <!-- Optional JavaScript; choose one of the two! -->

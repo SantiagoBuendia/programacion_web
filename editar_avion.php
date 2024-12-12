@@ -1,12 +1,12 @@
 <?php
 include('./class/class.php');
 //creamos el objeto de la clase Alumnos
-$avion= new Avion();
-if(isset($_POST['grabar']) && $_POST['grabar']=="si"){
+$avion = new Avion();
+if (isset($_POST['grabar']) && $_POST['grabar'] == "si") {
     $avion->editaravion($_POST['id'], $_POST['tip'], $_POST['base']);
     exit();
 }
-$reg=$avion->get_ida($_GET['id']);
+$reg = $avion->get_ida($_GET['id']);
 ?>
 <!doctype html>
 <html lang="es">
@@ -23,7 +23,6 @@ $reg=$avion->get_ida($_GET['id']);
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
-    <title>REGISTRO DE ALUMNOS</title>
 </head>
 
 <body onload="limpiar();">
@@ -37,16 +36,16 @@ $reg=$avion->get_ida($_GET['id']);
                     <div class="row">
                         <div class="col-md-6">
                             <label for="id">CODIGO</label>
-                            <input type="hidden"  name="grabar" value="si">
-                            <input type="text" name="id" class="form-control" value ="<?php echo $_GET['id'];?>" readonly>
+                            <input type="hidden" name="grabar" value="si">
+                            <input type="text" name="id" class="form-control" value="<?php echo $_GET['id']; ?>" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="tip">TIPO</label>
-                            <input type="text" name="tip" class="form-control" value="<?php echo $reg[0]['tipo'];?>">
+                            <input type="text" name="tip" class="form-control" value="<?php echo $reg[0]['tipo']; ?>">
                         </div>
                         <div class="col-md-6">
                             <label for="base">BASE</label>
-                            <input type="text" name="base" class="form-control" value="<?php echo $reg[0]['id_base'];?>">
+                            <input type="text" name="base" class="form-control" value="<?php echo $reg[0]['id_base']; ?>">
                         </div>
                         <div class="col-md-12">
                             <br>

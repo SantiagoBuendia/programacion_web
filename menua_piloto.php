@@ -27,7 +27,7 @@ if ($_SESSION['usuario']) {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <script type="text/javascript" language="Javascript" src="./js/funciones.js"></script>
-        <title>LOGIN DE PERSONAL</title>
+        <title>Personal</title>
     </head>
 
     <body onload="limpiar()" ;>
@@ -61,18 +61,22 @@ if ($_SESSION['usuario']) {
         <div class="container">
             <div class="card">
                 <div class="card-header bg-info">
-                    <h3 class="text-white text-center">GESTION DE BASE <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
+                    <h3 class="text-white text-center">GESTION DE PILOTO <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
                 </div>
                 <div class="card-body">
-                    <form name="form" action="insert_base.php" method="post">
+                    <form name="form" action="insert_piloto.php" method="post">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="nom">NOMBRE</label>
-                                <input type="text" name="nom" class="form-control" placeholder="DIGITE EL NOMBRE DE LA BASE">
+                                <label for="cod">CODIGO PERSONAL</label>
+                                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL CODIGO">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="num">NUMERO DE VUELO</label>
+                                <input type="number" name="num" class="form-control" placeholder="DIGITE EL NUMERO DE VUELO">
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR BASE" onclick="validar()">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
                             </div>
                     </form>
                 </div>
@@ -80,24 +84,26 @@ if ($_SESSION['usuario']) {
         </div>
         <?php
         //crear el objeto de la clas Alumnos
-        $base = new Base();
-        $reg = $base->verbase();
+        $piloto = new Piloto();
+        $reg = $piloto->verpiloto();
         ?>
         <div class="table-responsive">
-            <table id="base" class="table table-bordered table-striped">
+            <table id="pers" class="table table-bordered table-striped">
                 <thead>
                     <tr align="center">
-                        <th>NOMBRE</th>
+                        <th>CODIGO</th>
+                        <th>NUMERO DE VUELO</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     for ($i = 0; $i < count($reg); $i++) {
                         echo "<tr>
-        <td>" . $reg[$i]['nombre'] . "</td>";
+        <td>" . $reg[$i]['codigo'] . "</td>
+        <td>" . $reg[$i]['num_vuelo'] . "</td>";
                     ?>
                         <td align='center'>
-                            <button class='btn btn-primary' onclick="eliminar('eliminar_base.php?id=<?php echo $reg[$i]['nombre']; ?>')">
+                            <button class='btn btn-primary' onclick="eliminar('eliminar_piloto.php?id=<?php echo $reg[$i]['codigo']; ?>&num_vuelo=<?php echo $reg[$i]['num_vuelo']; ?>')">
                                 <span class="material-symbols-outlined">delete_sweep</span>
                         </td>
 
