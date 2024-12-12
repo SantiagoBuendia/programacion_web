@@ -47,7 +47,7 @@
                     <label for="fecha_nacimiento">FECHA DE NACIMIENTO</label>
                     <input class="form-styling" type="date" name="fecha_nacimiento" required />
                     <label for="telefono">TELEFONO</label>
-                    <input class="form-styling" type="text" name="telefono" placeholder="Diguite el telefono" required />
+                    <input class="form-styling" type="text"minlength="8" maxlength="10" pattern="[0-9]+"  name="telefono" placeholder="Digite el telefono" required />
                     <input type="submit" class="btn-signin" value="REGISTRAR" >
                 </form>
 
