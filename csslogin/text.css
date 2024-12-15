@@ -34,7 +34,7 @@ body {
 }
 
 .frame-long {
-  height: 615px;
+  height: 650px;
 }
 
 .frame-short {
@@ -180,12 +180,8 @@ li {
     fill: rgba(255,255,255,.03);
 }
 
-.form-signin input, .form-signup input {
-  color: #ffffff;
-  font-size: 13px;
-}
-
 .form-styling {
+  color: white!important;
   width: 100%;
   height: 35px;
 	padding-left: 15px;
@@ -193,6 +189,15 @@ li {
 	border-radius: 20px;
   margin-bottom: 20px;
   background: rgba(255,255,255,.2);
+}
+
+.form-styling::placeholder{
+  color: white;
+}
+
+.form-signin input, .form-signup input {
+  color: rgba(35,43,85,0.95);
+  font-size: 13px;
 }
 
 label {
@@ -211,9 +216,8 @@ label {
 .form-signin input:focus, textarea:focus, .form-signup input:focus, textarea:focus {
     background: rgba(255,255,255,.3);
     border: none; 
-    padding-right: 40px;
     transition: background .5s ease;
- }
+}
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -318,15 +322,6 @@ label {
 
 .btn-signin {
   float: left;
-  padding-top: 8px;
-  width: 100%;
-  height: 35px;
-	border: none;
-	border-radius: 20px;
-  margin-top: -8px;
-}
-
-.btn-signco {
   width: 100%;
   height: 35px;
 	border: none;
@@ -341,7 +336,6 @@ label {
   font-size: 13px;
   text-align: center;
   color: rgba(255,255,255, 1);
-  padding-top: 8px;
   width: 100%;
   height: 35px;
 	border: none;
@@ -515,4 +509,9 @@ a.btn-goback:hover {
   cursor: pointer;
   fill: #1059FF;
   transform: rotate(180deg);
+}
+
+.field-date{
+  color:#ffffff!important;
+  padding-right: 15px;
 }

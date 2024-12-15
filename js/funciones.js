@@ -81,5 +81,9 @@ function eliminar(url){
          window.location=url;
             
         }
-      })
+    })
+}
+
+function mostrarRecuperarContrasena() {
+    document.getElementById('recuperarContrasena').style.display = 'block';
 }
