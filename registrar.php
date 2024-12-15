@@ -4,9 +4,9 @@ include("./class/class_log.php");
 $nuv = new Nuevo();
 //traemos los datos del formulario de login
 $correo=$_REQUEST['correo'];
-$nombre=$_REQUEST['nombre'];
-$contraseña=$_REQUEST['contraseña'];
-$fecha_nacimiento=$_REQUEST['fecha_nacimiento'];
-$telefono=$_REQUEST['telefono'];
+$nombre=$_REQUEST['nom'];
+$contraseña=$_REQUEST['passw'];
+$fecha_nacimiento=$_REQUEST['fech_na'];
+$telefono=$_REQUEST['tel'];
 $nuv->registrar($correo,$nombre,$contraseña,$fecha_nacimiento,$telefono);
 ?>
