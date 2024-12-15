@@ -20,7 +20,7 @@ $vuelo->eliminarvuelo($_GET['id']);
      Swal.fire({
      icon : 'error',
     title : 'ERROR!!',
-     text :  ' Debe iniciar Session en el Sistema'
+     text :  'Debe iniciar sesión en el sistema'
     }).then((result) => {
          if(result.isConfirmed){
          window.location='./index.php';

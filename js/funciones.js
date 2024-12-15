@@ -6,66 +6,110 @@ function validar(){
     var form = document.form;
     if(form.cod.value==0){
         Swal.fire({
-            icon:'error',
-            title:'ERROR!!',
+            icon: 'error',
+            title: 'ERROR!!',
             text : 'Debe digitar el codigo'
-         });
-         form.cod.value="";
-         form.cod.focus();
-         return false;
+        });
+        form.cod.value="";
+        form.cod.focus();
+        return false;
     }
     if(form.nom.value==0){
         Swal.fire({
-            icon:'error',
-            title:'ERROR!!',
-            text : 'Debe digitar el Nombre'
-         });
-         form.nom.value="";
-         form.nom.focus();
-         return false;
+            icon: 'error',
+            title: 'ERROR!!',
+            text : 'Debe digitar el nombre'
+        });
+        form.nom.value="";
+        form.nom.focus();
+        return false;
     }
-    if(form.ape.value==0){
+    if(form.correo.value==0){
         Swal.fire({
             icon:'error',
             title:'ERROR!!',
-            text : 'Debe digitar el Apellido'
-         });
-         form.ape.value="";
-         form.ape.focus();
-         return false;
-    }
-    if(form.em.value==0){
-        Swal.fire({
-            icon:'error',
-            title:'ERROR!!',
-            text : 'Debe digitar el EMAIL'
-         });
-         form.em.value="";
-         form.em.focus();
-         return false;
+            text : 'Debe digitar el correo electrónico'
+        });
+        form.correo.value="";
+        form.correo.focus();
+        return false;
     }
     if(form.tel.value==0){
         Swal.fire({
             icon:'error',
             title:'ERROR!!',
-            text : 'Debe digitar el Telefono'
-         });
-         form.tel.value="";
-         form.tel.focus();
-         return false;
+            text : 'Debe digitar el telefono'
+        });
+        form.tel.value="";
+        form.tel.focus();
+        return false;
     }
-    if(form.fen.value==0){
+    if(form.fecha_nacimiento.value==0){
         Swal.fire({
             icon:'error',
             title:'ERROR!!',
             text : 'Debe Seleccionar la Fecha de Nacimiento'
-         });
-         form.fen.value="";
-         form.fen.focus();
-         return false;
+        });
+        form.fecha_nacimiento.value="";
+        form.fecha_nacimiento.focus();
+        return false;
     }
     form.submit();
 }
+
+//Validar inicio sesión
+function validarInicioSesion(event){
+    event.preventDefault();
+
+    var form = document.form;
+    var camposAValidar = [
+        { nombre: 'correo', mensaje: 'Debe digitar el correo' },
+        { nombre: 'passw', mensaje: 'Debe digitar la contraseña' }
+    ];
+
+    for (var i = 0; i < camposAValidar.length; i++) {
+        var campo = camposAValidar[i];
+        var valorCampo = form[campo.nombre].value.trim();
+
+        if (valorCampo === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR!!',
+                text: campo.mensaje
+            });
+            
+            form[campo.nombre].value = '';
+            form[campo.nombre].focus();
+            return false;
+        }
+    }
+    form.submit(); 
+}
+
+// Validar Registro de usuario
+function validarRegistroU(event){
+    event.preventDefault();
+
+    var form = document.form;
+    var camposAValidar = ['correo', 'nom', 'passw', 'fech_na', 'tel'];
+
+    for (var i = 0; i < camposAValidar.length; i++) {
+        var valorCampo = form[camposAValidar[i]].value.trim();
+        if (valorCampo === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR!!',
+                text: 'Rellene todos los campos'
+            });
+            
+            form[camposAValidar[i]].value = '';
+            form[camposAValidar[i]].focus();
+            return false;
+        }
+    }
+    form.submit(); 
+}
+
 //funcion eliminar
 function eliminar(url){
     Swal.fire({
@@ -76,10 +120,9 @@ function eliminar(url){
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-         window.location=url;
-            
+            window.location=url;        
         }
-      })
+    })
 }

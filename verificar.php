@@ -3,7 +3,7 @@ include("./class/class_log.php");
 //creamos el objeto de la clase Login
 $log = new Login();
 //traemos los datos del formulario de login
-$user=$_REQUEST['user'];
+$correo=$_REQUEST['correo'];
 $pass=$_REQUEST['passw'];
-$log->validar($user,$pass);
+$log->validar($correo,$pass);
 ?>
