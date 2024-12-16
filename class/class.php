@@ -23,7 +23,7 @@
         {
             $host = "localhost";
             $user = "root";
-            $pass = "1234";
+            $pass = "123456";
             $db_name = "bd_aerea";
             //conectarnos a la BD
             $link = mysqli_connect($host, $user, $pass)

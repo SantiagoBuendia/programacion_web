@@ -51,7 +51,8 @@
                 <form style="padding-top: 0px !important;" class="form-signin" action="recuperar_contrasena.php" method="post">
                     <label for="correo_recuperar">Ingrese su correo</label>
                     <input class="form-styling" type="email" name="correo_recuperar" placeholder="Digite su correo" required>
-                    <input type="submit" class="btn-signco" value="Enviar correo de recuperación">
+                    <input style="width: 100% !important; height: 35px !important; border: none !important; border-radius: 20px !important; margin-top: 8px !important;"
+                    type="submit" class="btn-signco" value="Enviar correo de recuperación">
                 </form>
             </div>
         </div>
