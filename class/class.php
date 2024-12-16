@@ -18,7 +18,7 @@
                 {
                     $host = "localhost";
                     $user = "root";
-                    $pass = "";
+                    $pass = "123456";
                     $db_name = "bd_aerea";
                     //conectarnos a la BD
                     $link = mysqli_connect($host, $user, $pass)
@@ -452,9 +452,9 @@
                     }
                     return $this->piloto;
                 }
-                public function insertpiloto($cod, $num)
+                public function insertpiloto($cod, $num, $horas)
                 {
-                    $sql = "insert into piloto values('$cod','$num')";
+                    $sql = "insert into piloto values('$cod','$num','$horas')";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>
@@ -586,7 +586,8 @@
                         a.codigo AS CodigoAvion,
                         a.tipo AS TipoAvion,
                         p.nombre AS NombrePiloto,
-                        GROUP_CONCAT(DISTINCT mb.nombre SEPARATOR ', ') AS MiembrosTripulacion
+                        GROUP_CONCAT(DISTINCT mb.nombre SEPARATOR ', ') AS MiembrosTripulacion, 
+                        pt.hora_vuelo AS horaVuelo 
                         FROM 
                             vuelo v
                         JOIN 
@@ -600,7 +601,7 @@
                         LEFT JOIN 
                             persona mb ON m.codigo = mb.codigo
                         GROUP BY 
-                            v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, a.codigo, a.tipo, p.nombre;";
+                            v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, a.codigo, a.tipo, p.nombre, pt.hora_vuelo;";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     //recorrer la tabla alumnos
                     while ($row = mysqli_fetch_assoc($res)) {

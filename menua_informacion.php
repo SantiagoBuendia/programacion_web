@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
+  <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="menua_avion.php">Personal</a>
+        <a class="navbar-brand" href="menua.php">Personal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,14 +37,61 @@
         </div>
       </div>
     </nav>
-    </div>
     <div class="container">
       <div class="card">
         <div class="card-header bg-info">
           <h3 class="text-white text-center">GESTION DE INFORMACIÓN <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
         </div>
-    </div>
-<div>
+      </div>
+      <?php
+      //crear el objeto de la clase información
+      $informacion = new informacion();
+      $reg = $informacion->ver();
+      ?>
+      <div class="table-responsive">
+        <table id="pers" class="table table-bordered table-striped">
+          <thead>
+            <tr align="center">
+              <th>NÚMERO DE VUELO</th>
+              <th>ORIGEN</th>
+              <th>DESTINO</th>
+              <th>FECHA</th>
+              <th>HORA</th>
+              <th>CÓDIGO AVION</th>
+              <th>TIPO DE AVION</th>
+              <th>NOMBRE PILOTO</th>
+              <th>MIEMBRO TRIPULACION</th>
+              <th>HORAS DE VUELO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            for ($i = 0; $i < count($reg); $i++) {
+              echo "<tr>
+                <td>" . $reg[$i]['NumeroDeVuelo'] . "</td>
+                <td>" . $reg[$i]['Origen'] . "</td>
+                <td>" . $reg[$i]['Destino'] . "</td>
+                <td>" . $reg[$i]['Fecha'] . "</td>
+                <td>" . $reg[$i]['Hora'] . "</td>
+                <td>" . $reg[$i]['CodigoAvion'] . "</td>
+                <td>" . $reg[$i]['TipoAvion'] . "</td>
+                <td>" . $reg[$i]['NombrePiloto'] . "</td>
+                <td>" . $reg[$i]['MiembrosTripulacion'] . "</td>
+                <td>" . $reg[$i]['horaVuelo'] . "</td>";
+            ?>
+              </tr>
+            <?php
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+  </div>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./sw/dist/sweetalert2.min.js"></script>
+    <script src="./js/jquery-3.6.1.min.js"></script>
+</body>
+</html>
 <?php
 include('class/class.php'); // Incluir la clase de conexión
 

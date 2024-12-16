@@ -262,6 +262,7 @@ function eliminar(url){
     })
 }
 
+
 // Mostrar campor horas de vuelo si es piloto
 function activarHorasVuelo() {
     var pilotoRadio = document.getElementById('piloto');
@@ -276,4 +277,8 @@ function activarHorasVuelo() {
         horasVueloInput.required = false;
         horasVueloInput.value = '';
     }
+}
+
+function mostrarRecuperarContrasena() {
+    document.getElementById('recuperarContrasena').style.display = 'block';
 }
