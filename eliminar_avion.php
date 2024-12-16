@@ -17,13 +17,13 @@ $avion->eliminaravion($_GET['id']);
     $_SESSION['usuario']=NULL;
     echo "
     <script type='text/javascript'>
-     Swal.fire({
-     icon : 'error',
-    title : 'ERROR!!',
-     text :  ' Debe iniciar Session en el Sistema'
-    }).then((result) => {
-         if(result.isConfirmed){
-         window.location='./index.php';
+        Swal.fire({
+            icon : 'error',
+            title : 'ERROR!!',
+            text :  'Debe iniciar sesión en el sistema'
+        }).then((result) => {
+            if(result.isConfirmed){
+            window.location='./index.php';
         }
     }); </script>";
 }

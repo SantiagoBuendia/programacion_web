@@ -20,7 +20,7 @@ $miembro->eliminarmiembro($_GET['id'],$_GET['num_vuelo']);
      Swal.fire({
      icon : 'error',
     title : 'ERROR!!',
-     text :  ' Debe iniciar Session en el Sistema'
+     text :  'Debe iniciar sesión en el sistema'
     }).then((result) => {
          if(result.isConfirmed){
          window.location='./index.php';
