@@ -18,7 +18,7 @@
                 {
                     $host = "localhost";
                     $user = "root";
-                    $pass = "";
+                    $pass = "123456";
                     $db_name = "bd_aerea";
                     //conectarnos a la BD
                     $link = mysqli_connect($host, $user, $pass)
@@ -368,9 +368,9 @@
                     }
                     return $this->piloto;
                 }
-                public function insertpiloto($cod, $num)
+                public function insertpiloto($cod, $num, $horas)
                 {
-                    $sql = "insert into piloto values('$cod','$num')";
+                    $sql = "insert into piloto values('$cod','$num','$horas')";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>

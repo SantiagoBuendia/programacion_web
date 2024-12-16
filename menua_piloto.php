@@ -29,7 +29,7 @@ if ($_SESSION['usuario']) {
     <body onload="limpiar()" ;>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="menua_avion.php">Personal</a>
+                <a class="navbar-brand" href="menua.php">Personal</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -73,6 +73,10 @@ if ($_SESSION['usuario']) {
                                 <label for="num">NÚMERO DE VUELO</label>
                                 <input type="number" name="num" class="form-control" placeholder="DIGITE EL NUMERO DE VUELO">
                             </div>
+                            <div class="col-md-6">
+                                <label for="horas">HORAS DE VUELO</label>
+                                <input type="number" name="horas" class="form-control" placeholder="DIGITE LAS HORAS DE VUELO">
+                            </div>
                             <div class="col-md-12">
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
@@ -92,6 +96,7 @@ if ($_SESSION['usuario']) {
                     <tr align="center">
                         <th>CÓDIGO</th>
                         <th>NÚMERO DE VUELO</th>
+                        <th>HORAS DE VUELO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,7 +104,8 @@ if ($_SESSION['usuario']) {
                     for ($i = 0; $i < count($reg); $i++) {
                         echo "<tr>
                             <td>" . $reg[$i]['codigo'] . "</td>
-                            <td>" . $reg[$i]['num_vuelo'] . "</td>";
+                            <td>" . $reg[$i]['num_vuelo'] . "</td>
+                            <td>" . $reg[$i]['hora_vuelo'] . "</td>";
                     ?>
                             <td align='center'>
                                 <button class='btn btn-primary' onclick="eliminar('eliminar_piloto.php?id=<?php echo $reg[$i]['codigo']; ?>&num_vuelo=<?php echo $reg[$i]['num_vuelo']; ?>')">
