@@ -16,11 +16,11 @@ class Login
                 Swal.fire({
                     icon: 'success',
                     title: 'BIENVENIDO',
-                    text: '" . $_SESSION['usuario'] . " bienvenido al sistema'
+                    text: '" . $_SESSION['usuario'] . " Bienvenido al sistema'
                 }).then((result) => {
                     if(result.isConfirmed){
                         if('" . $_SESSION['cargo'] . "' === 'administrador'){
-                            window.location='./menua_vuelo.php';
+                            window.location='./menua.php';
                         } else if('" . $_SESSION['cargo'] . "' === 'usuario'){ 
                             window.location='./menuu.php';
                         }
@@ -47,20 +47,42 @@ class Nuevo
 {
     public function registrar($correo, $nombre, $contraseña, $fecha_nacimiento, $telefono)
     {
-        $sql="insert into usuario values ('$correo', '$nombre', '$contraseña', '$fecha_nacimiento', 'usuario', $telefono)";
-        $res=mysqli_query(Conectar::conec(),$sql);
-        echo "
-        <script type='text/javascript'>
-        Swal.fire({
-            icon : 'success',
-            title : 'Operacion Exitosa!!',
-            text :  'insertado Correctamente'
-        }).then((result) => {
-            if(result.isConfirmed){
-                window.location='./index.php';
-            }
-        });
-        </script>";
+        if ($this->get_usu($correo)) {
+            echo "
+                <script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Información',
+                        text: 'Esta dirección de correo electrónico ya está en uso'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location='./index.php';
+                        }
+                    });
+                </script>";
+        }else{
+            $sql="insert into usuario values ('$correo', '$nombre', '$contraseña', '$fecha_nacimiento', 'usuario', $telefono)";
+            $res=mysqli_query(Conectar::conec(),$sql);
+            echo "
+            <script type='text/javascript'>
+                Swal.fire({
+                    icon : 'success',
+                    title : 'Operacion Exitosa!!',
+                    text :  'Registrado correctamente'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location='./index.php';
+                    }
+                });
+            </script>";
+        }
+    }
+    //metodo para obtener el correo por el correo que ingresa el usuario
+    public function get_usu($campo)
+    {
+        $sql = "select correo from usuario where correo ='$campo'";
+        $res = mysqli_query(Conectar::conec(), $sql);
+        return mysqli_num_rows($res) > 0;
     }
 }
 ?>

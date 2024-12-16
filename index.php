@@ -23,25 +23,25 @@
             </div>
             <div ng-app ng-init="checked = false">
                 <form class="form-signin" action="verificar.php" method="post" name="form">
-                    <label for="correo">CORREO</label>
-                    <input class="form-styling" type="text" name="correo" class="form-control" placeholder="ejemplo@correo.com">
-                    <label for="passw">CONTRASEÑA</label>
-                    <input class="form-styling" type="password" name="passw" class="form-control" placeholder="**********">
-                    <input type="submit" class="btn-signin" value="INGRESAR" onclick="validarInicioSesion(event)">
-                </form>
-                <form class="form-signup" action="registrar.php" method="post">
-                    <label for="correo">CORREO</label>
-                    <input class="form-styling" type="text" name="correo" placeholder="ejemplo@correo.com" />
-                    <label for="nom">NOMBRE</label>
-                    <input class="form-styling" type="text" name="nom" placeholder="Digite el nombre" />
-                    <label for="passw">CONTRASEÑA</label>
-                    <input class="form-styling" type="text" name="passw" placeholder="**********" />
-                    <label for="fech_na">FECHA DE NACIMIENTO</label>
-                    <input class="form-styling field-date" type="date" name="fech_na" />
-                    <label for="tel">TELÉFONO</label>
-                    <input class="form-styling" type="text" minlength="8" maxlength="10" pattern="[0-9]+" name="tel" placeholder="Digite el teléfono" />
-                    <input type="submit" class="btn-signin" value="REGISTRAR" onclick="validarRegistroU(event)">
-                </form>
+                      <label for="correo">CORREO</label>
+                      <input class="form-styling" type="text" name="correo" class="form-control" placeholder="ejemplo@correo.com">
+                      <label for="passw">CONTRASEÑA</label>
+                      <input class="form-styling" type="password" name="passw" class="form-control" placeholder="**********">
+                      <input type="submit" class="btn-signin" value="INGRESAR" onclick="validarInicioSesion(event)">
+                  </form>
+                  <form class="form-signup" action="registrar.php" method="post" name="signupform">
+                      <label for="correo">CORREO</label>
+                      <input class="form-styling" type="text" name="correo" placeholder="ejemplo@correo.com"/>
+                      <label for="nom">NOMBRE</label>
+                      <input class="form-styling" type="text" name="nom" placeholder="Digite el nombre"/>
+                      <label for="passw">CONTRASEÑA</label>
+                      <input class="form-styling" type="password" name="passw" placeholder="**********"/>
+                      <label for="fech_na">FECHA DE NACIMIENTO</label>
+                      <input class="form-styling field-date" type="date" name="fech_na"/>
+                      <label for="tel">TELÉFONO</label>
+                      <input class="form-styling" type="text" minlength="8" maxlength="10" name="tel" placeholder="Digite el teléfono" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                      <input type="submit" class="btn-signin" value="REGISTRAR" onclick="validarRegistroU(event)">
+                  </form>
             </div>
             <div class="forgot">
                 <a href="#" onclick="mostrarRecuperarContrasena()">¿Olvidó su contraseña?</a>

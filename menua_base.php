@@ -56,6 +56,11 @@ if ($_SESSION['usuario']) {
                 </div>
             </div>
         </nav>
+        <?php
+            //crear el objeto de la clase base
+            $base = new Base();
+            $reg = $base->verbase();
+        ?>
         <div class="container">
             <div class="card">
                 <div class="card-header bg-info">
@@ -70,17 +75,12 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR BASE" onclick="validar()">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR BASE" onclick="validarCampos(event,'base')">
                             </div>
                     </form>
                 </div>
             </div>
         </div>
-        <?php
-        //crear el objeto de la clase base
-        $base = new Base();
-        $reg = $base->verbase();
-        ?>
         <div class="table-responsive">
             <table id="base" class="table table-bordered table-striped">
                 <thead>

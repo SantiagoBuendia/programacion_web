@@ -72,7 +72,7 @@ if ($_SESSION['usuario']) {
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="cod">NÚMERO DE VUELO</label>
-                                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL NUMERO" required>
+                                <input type="text" name="cod" class="form-control" placeholder="DIGITE EL NUMERO">
                             </div>
                             <div class="col-md-6">
                                 <label for="org">ORIGEN</label>
@@ -103,7 +103,7 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO" onclick="validarCampos(event,'vuelo')">
                             </div>
                     </form>
                 </div>

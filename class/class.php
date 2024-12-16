@@ -49,20 +49,37 @@
                 }
                 public function insertpers($cod, $nom, $base)
                 {
-                    $sql = "insert into persona values('$cod','$nom','$base')";
-                    $res = mysqli_query(Conectar::conec(), $sql);
-                    echo "
-                    <script type='text/javascript'>
-                    Swal.fire({
-                        icon : 'success',
-                        title : 'Operacion Exitosa!!',
-                        text :  'Persona insertado Correctamente'
-                    }).then((result) => {
-                        if(result.isConfirmed){
-                            window.location='./menua.php';
-                        }
-                    });
-                    </script>";
+                    $personal = new Personal();
+                    $personalExistente = $personal->get_ida($cod);
+                    if(!empty($personalExistente)){
+                        echo "
+                            <script type='text/javascript'>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'El código ya existe. No se realizó la inserción.'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        window.location='./menua.php';
+                                    }
+                                });
+                            </script>";
+                    }else{
+                        $sql = "insert into persona values('$cod','$nom','$base')";
+                        $res = mysqli_query(Conectar::conec(), $sql);
+                        echo "s
+                            <script type='text/javascript'>
+                                Swal.fire({
+                                    icon : 'success',
+                                    title : 'Operacion Exitosa!!',
+                                    text :  'Persona insertado Correctamente'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        window.location='./menua.php';
+                                    }
+                                });
+                            </script>";
+                    }
                 }
                 //metodo editar
                 public function editarpers($id, $nom, $base)
@@ -83,8 +100,7 @@
                         </script>";
                 }
 
-                //metodo para trar el id del alumno
-
+                //metodo para obtener datos por el codigo del personal
                 public function get_ida($id)
                 {
                     $sql = "select * from persona where codigo='$id'";
@@ -113,6 +129,25 @@
                         }); </script>
                     ";
                 }
+
+                // Metodo ver pilotos o miembros
+                // public function verPilo_Miem($clase)
+                // {
+                //     if($clase == 'piloto'){
+                //         $sql = "select codigo, concat(codigo, ', ', pe.nombre) as 'PerPiloto'
+                //                 from persona
+                //                 where perfil = 'piloto";
+                //     }else{
+                //         $sql = "select codigo, concat(codigo, ', ', pe.nombre) as 'PerPiloto'
+                //                 from persona
+                //                 where perfil = 'miembro";
+                //     }
+                //     $res = mysqli_query(Conectar::conec(), $sql);
+                //     while ($row = mysqli_fetch_assoc($res)) {
+                //         $this->pers[] = $row;
+                //     }
+                //     return $this->pers;
+                // }
             }
             class Avion
             {
@@ -136,20 +171,37 @@
                 //metodo insertar avión
                 public function insertavion($cod, $tip, $base)
                 {
-                    $sql = "insert into avion values('$cod','$tip','$base')";
-                    $res = mysqli_query(Conectar::conec(), $sql);
-                    echo "
-                        <script type='text/javascript'>
-                        Swal.fire({
-                            icon : 'success',
-                            title : 'Operacion Exitosa!!',
-                            text :  'Avion insertado Correctamente'
-                        }).then((result) => {
-                            if(result.isConfirmed){
-                                window.location='./menua_avion.php';
-                            }
-                        });
-                        </script>";
+                    $avion = new Avion();
+                    $avionExistente = $avion->get_ida($cod);
+                    if (!empty($avionExistente)) {
+                        echo "
+                            <script type='text/javascript'>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'El código del avión ya existe. No se realizó la inserción.'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        window.location='./menua_avion.php';
+                                    }
+                                });
+                            </script>";
+                    }else{
+                        $sql = "insert into avion values('$cod','$tip','$base')";
+                        $res = mysqli_query(Conectar::conec(), $sql);
+                        echo "
+                            <script type='text/javascript'>
+                            Swal.fire({
+                                icon : 'success',
+                                title : 'Operacion Exitosa!!',
+                                text :  'Avion insertado Correctamente'
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    window.location='./menua_avion.php';
+                                }
+                            });
+                            </script>";
+                    }
                 }
                 //metodo editar avión
                 public function editaravion($id, $tip, $base)
@@ -169,7 +221,7 @@
                         });
                         </script>";
                 }
-                //metodo para obtener datos por el id
+                //metodo para obtener datos por el codigo del avión
                 public function get_ida($id)
                 {
                     $sql = "select * from avion where codigo='$id'";
@@ -218,24 +270,40 @@
                 }
                 public function insertbase($nom)
                 {
-                    $sql = "insert into base values('$nom')";
-                    $res = mysqli_query(Conectar::conec(), $sql);
-                    echo "
-                        <script type='text/javascript'>
-                        Swal.fire({
-                            icon : 'success',
-                            title : 'Operacion Exitosa!!',
-                            text :  'Base insertado Correctamente'
-                        }).then((result) => {
-                            if(result.isConfirmed){
-                                window.location='./menua_base.php';
-                            }
-                        });
-                        </script>";
+                    $base = new Base();
+                    $baseExistente = $base->get_ida($nom);
+                    if (!empty($baseExistente)) {
+                        echo "
+                            <script type='text/javascript'>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'El nombre de la base ya existe. No se realizó la inserción.'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        window.location='./menua_base.php';
+                                    }
+                                });
+                            </script>";
+                    }else{
+                        $sql = "insert into base values('$nom')";
+                        $res = mysqli_query(Conectar::conec(), $sql);
+                        echo "
+                            <script type='text/javascript'>
+                            Swal.fire({
+                                icon : 'success',
+                                title : 'Operacion Exitosa!!',
+                                text :  'Base insertado Correctamente'
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    window.location='./menua_base.php';
+                                }
+                            });
+                            </script>";
+                    }
                 }
 
-                //metodo para trar el id del alumno
-
+                //metodo para obtener datos por el nombre de la base
                 public function get_ida($id)
                 {
                     $sql = "select * from base where nombre='$id'";
@@ -285,20 +353,37 @@
                 }
                 public function insertvuelo($cod, $org, $dest, $hora, $fecha, $avion)
                 {
-                    $sql = "insert into vuelo values('$cod','$org','$dest','$hora','$fecha','$avion')";
-                    $res = mysqli_query(Conectar::conec(), $sql);
-                    echo "
-                        <script type='text/javascript'>
-                        Swal.fire({
-                            icon : 'success',
-                            title : 'Operacion Exitosa!!',
-                            text :  'Vuelo insertado Correctamente'
-                        }).then((result) => {
-                            if(result.isConfirmed){
-                                window.location='./menua_vuelo.php';
-                            }
-                        });
-                        </script>";
+                    $vuelo = new Vuelo();
+                    $vueloExistente = $vuelo->get_ida($cod);
+                    if (!empty($vueloExistente)) {
+                        echo "
+                            <script type='text/javascript'>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'El código del vuelo ya existe. No se realizó la inserción.'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        window.location='./menua_vuelo.php';
+                                    }
+                                });
+                            </script>";
+                    }else{
+                        $sql = "insert into vuelo values('$cod','$org','$dest','$hora','$fecha','$avion')";
+                        $res = mysqli_query(Conectar::conec(), $sql);
+                        echo "
+                            <script type='text/javascript'>
+                            Swal.fire({
+                                icon : 'success',
+                                title : 'Operacion Exitosa!!',
+                                text :  'Vuelo insertado Correctamente'
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    window.location='./menua_vuelo.php';
+                                }
+                            });
+                            </script>";
+                    }
                 }
                 //metodo editar
                 public function editarvuelo($cod, $org, $dest, $hora, $fecha, $avion)
@@ -319,8 +404,7 @@
                         </script>";
                 }
 
-                //metodo para trar el id del alumno
-
+                //metodo para obtener datos por el codigo del vuelo
                 public function get_ida($id)
                 {
                     $sql = "select * from vuelo where num_vuelo='$id'";
@@ -386,8 +470,7 @@
                         </script>";
                 }
 
-                //metodo para trar el id del alumno
-
+                //metodo para obtener datos por el codigo del piloto
                 public function get_ida($id)
                 {
                     $sql = "select * from piloto where codigo='$id'";
@@ -453,8 +536,7 @@
                     </script>";
                 }
 
-                //metodo para trar el id del alumno
-
+                //metodo para obtener datos por el codigo del miembro
                 public function get_ida($id)
                 {
                     $sql = "select * from miembro where codigo='$id'";

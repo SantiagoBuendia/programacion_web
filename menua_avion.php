@@ -71,14 +71,14 @@ if ($_SESSION['usuario']) {
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="cod">CÓDIGO</label>
-                                <input type="text" name="cod" class="form-control" placeholder="DIGITE EL CÓDIGO" >
+                                <input type="text" name="cod" class="form-control" placeholder="DIGITE EL CÓDIGO" pattern="^[A-Za-z]{3}[0-9]{3}$">
                             </div>
                             <div class="col-md-6">
                                 <label for="tip">TIPO</label>
                                 <input type="text" name="tip" class="form-control" placeholder="DIGITE EL TIPO">
                             </div>
                             <div class="col-md-6">
-                                <label for="base">BASE</label>
+                                <label for="base">BASE DE MANTENIMIENTO</label>
                                 <select name="base" class="form-select">
                                     <option value="" disabled selected>SELECCIONE UNA BASE</option>
                                     <?php
@@ -90,7 +90,7 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR AVION" onclick="validar()">
+                            <input type="submit" class="btn btn-primary" value="REGISTRAR AVIÓN" onclick="validarCampos(event,'avion')">
                             </div>
                     </form>
                 </div>
