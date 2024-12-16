@@ -126,3 +126,8 @@ function eliminar(url){
         }
     })
 }
+
+function mostrarRecuperarContrasena() {
+    document.getElementById('recuperarContrasena').style.display = 'block';
+}
+
