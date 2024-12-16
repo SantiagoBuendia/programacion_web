@@ -81,6 +81,7 @@ if ($_SESSION['usuario']) {
             <th>TIPO DE AVION</th>
             <th>NOMBRE PILOTO</th>
             <th>MIEMBRO TRIPULACION</th>
+            <th>HORAS DE VUELO</th>
           </tr>
         </thead>
         <tbody>
@@ -95,7 +96,8 @@ if ($_SESSION['usuario']) {
               <td>" . $reg[$i]['CodigoAvion'] . "</td>
               <td>" . $reg[$i]['TipoAvion'] . "</td>
               <td>" . $reg[$i]['NombrePiloto'] . "</td>
-              <td>" . $reg[$i]['MiembrosTripulacion'] . "</td>";
+              <td>" . $reg[$i]['MiembrosTripulacion'] . "</td>
+              <td>" . $reg[$i]['horaVuelo'] . "</td>";
           ?>
             </tr>
           <?php
