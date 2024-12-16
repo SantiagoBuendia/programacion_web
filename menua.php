@@ -12,16 +12,12 @@ $_SESSION['timeout'] = time();
 include('./class/class.php');
 if ($_SESSION['usuario']) {
 ?>
-  <!doctype html>
-  <html>
+<!doctype html>
+<html>
 
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./sw/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -33,14 +29,14 @@ if ($_SESSION['usuario']) {
   <body onload="limpiar()" ;>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="menua_avion.php">Personal</a>
+        <a class="navbar-brand" href="menua.php">Personal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="menua_avion.php">Avion</a>
+              <a class="nav-link active" aria-current="page" href="menua_avion.php">Avión</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="menua_base.php">Base</a>
@@ -55,42 +51,71 @@ if ($_SESSION['usuario']) {
               <a class="nav-link" href="menua_miembro.php">Miembro</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="menua_informacion.php">Informacion</a>
+              <a class="nav-link" href="menua_informacion.php">Información</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+    <?php
+      //crear el objeto de la clase base
+      $base = new Base();
+      $lstbase = $base->verbase();
+    ?>
     <div class="container">
       <div class="card">
         <div class="card-header bg-info">
-          <h3 class="text-white text-center">GESTION DE PERSONAL <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
+          <h3 class="text-white text-center">GESTIÓN DE PERSONAL <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
         </div>
         <div class="card-body">
           <form name="form" action="insertp.php" method="post">
             <div class="row">
               <div class="col-md-6">
-                <label for="cod">CODIGO</label>
-                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL CODIGO">
+                <label for="cod">CÓDIGO (CÉDULA)</label>
+                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL CODIGO" in="1" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
               </div>
               <div class="col-md-6">
                 <label for="nom">NOMBRE</label>
                 <input type="text" name="nom" class="form-control" placeholder="DIGITE EL NOMBRE">
               </div>
               <div class="col-md-6">
-                <label for="base">BASE</label>
-                <input type="text" name="base" class="form-control" placeholder="DIGITE LA BASE">
+                <label for="base">BASE DE REGRESO</label>
+                <select name="base" class="form-select">
+                    <option value="" disabled selected>SELECCIONE UNA BASE</option>
+                    <?php
+                        for ($i = 0; $i < count($lstbase); $i++) {
+                            echo "<option value='" . $lstbase[$i]['nombre']. "'>" . $lstbase[$i]['nombre'] . "</option>";
+                        }
+                    ?>
+                </select>                                
+              </div>
+              <div class="col-md-6">
+                <label>TIPO DE PERSONAL</label>
+                <div class="form-control">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tip_per" id="miembro" value="miembro" onclick="activarHorasVuelo()">
+                    <label class="form-check-label" for="miembro">Miembro</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tip_per" id="piloto" value="piloto" onclick="activarHorasVuelo()">
+                    <label class="form-check-label" for="piloto">Piloto</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" id="horas_vuelo_container" style="display:none;">
+                <label for="h_vuelo">HORAS DE VUELO</label>
+                <input type="number" name="h_vuelo" class="form-control" placeholder="DIGITE LAS HORAS DE VUELO" in="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
               </div>
               <div class="col-md-12">
                 <br>
-                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
+                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validarCampos(event,'personal'); ">
               </div>
           </form>
         </div>
       </div>
     </div>
     <?php
-    //crear el objeto de la clas Alumnos
+    //crear el objeto de la clase personal
     $pers = new Personal();
     $reg = $pers->veralp();
     ?>
@@ -98,61 +123,51 @@ if ($_SESSION['usuario']) {
       <table id="pers" class="table table-bordered table-striped">
         <thead>
           <tr align="center">
-            <th>CODIGO</th>
+            <th>CÓDIGO</th>
             <th>NOMBRE</th>
-            <th>BASE</th>
+            <th>BASE DE REGRESO</th>
           </tr>
         </thead>
         <tbody>
           <?php
           for ($i = 0; $i < count($reg); $i++) {
-            echo "<tr>
-        <td>" . $reg[$i]['codigo'] . "</td>
-        <td>" . $reg[$i]['nombre'] . "</td>
-        <td>" . $reg[$i]['id_base'] . "</td>";
+            echo "<tr class='align-middle'>
+              <td>" . $reg[$i]['codigo'] . "</td>
+              <td>" . $reg[$i]['nombre'] . "</td>
+              <td>" . $reg[$i]['id_base'] . "</td>";
           ?>
-            <td align='center'>
-              <button class='btn btn-warning' onclick=window.location="./editarp.php?id=<?php echo $reg[$i]['codigo']; ?>">
-                <span class="material-symbols-outlined">edit_square</span>
-                <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $reg[$i]['codigo']; ?>')">
-                  <span class="material-symbols-outlined">delete_sweep</span>
-            </td>
-
+              <td class='d-flex align-items-center justify-content-evenly'>
+                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location="./editarp.php?id=<?php echo $reg[$i]['codigo']; ?>">
+                  <span class="material-symbols-outlined">edit_square</span>
+                  <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $reg[$i]['codigo']; ?>')">
+                    <span class="material-symbols-outlined">delete_sweep</span>
+              </td>
             </tr>
           <?php
           }
           ?>
         </tbody>
       </table>
-
     </div>
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./sw/dist/sweetalert2.min.js"></script>
     <script src="./js/jquery-3.6.1.min.js"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
   </body>
-
-  </html>
+</html>
 <?php
 } else {
   $_SESSION['usuario'] = NULL;
   echo "
     <script type='text/javascript'>
-     Swal.fire({
-     icon : 'error',
-    title : 'ERROR!!',
-     text :  ' Debe iniciar Session en el Sistema'
-    }).then((result) => {
-         if(result.isConfirmed){
-         window.location='./index.php';
+      Swal.fire({
+        icon : 'error',
+        title : 'ERROR!!',
+        text :  ' Debe iniciar Session en el Sistema'
+      }).then((result) => {
+        if(result.isConfirmed){
+          window.location='./index.php';
         }
-    }); </script>";
+      });
+    </script>";
 }
 ?>

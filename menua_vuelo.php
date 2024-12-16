@@ -29,7 +29,7 @@ if ($_SESSION['usuario']) {
     <body onload="limpiar()" ;>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="menua_avion.php">Personal</a>
+                <a class="navbar-brand" href="menua.php">Personal</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -72,7 +72,7 @@ if ($_SESSION['usuario']) {
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="cod">NÚMERO DE VUELO</label>
-                                <input type="number" name="cod" class="form-control" placeholder="DIGITE EL NUMERO" required>
+                                <input type="text" name="cod" class="form-control" placeholder="DIGITE EL NUMERO">
                             </div>
                             <div class="col-md-6">
                                 <label for="org">ORIGEN</label>
@@ -103,7 +103,7 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR PERSONAL" onclick="validar()">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO" onclick="validarCampos(event,'vuelo')">
                             </div>
                     </form>
                 </div>

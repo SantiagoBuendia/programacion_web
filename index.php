@@ -29,17 +29,17 @@
                         <input class="form-styling" type="password" name="passw" class="form-control" placeholder="**********">
                         <input type="submit" class="btn-signin" value="INGRESAR" onclick="validarInicioSesion(event)">
                     </form>
-                    <form class="form-signup" action="registrar.php" method="post">
+                    <form class="form-signup" action="registrar.php" method="post" name="signupform">
                         <label for="correo">CORREO</label>
                         <input class="form-styling" type="text" name="correo" placeholder="ejemplo@correo.com"/>
                         <label for="nom">NOMBRE</label>
                         <input class="form-styling" type="text" name="nom" placeholder="Digite el nombre"/>
                         <label for="passw">CONTRASEÑA</label>
-                        <input class="form-styling" type="text" name="passw" placeholder="**********"/>
+                        <input class="form-styling" type="password" name="passw" placeholder="**********"/>
                         <label for="fech_na">FECHA DE NACIMIENTO</label>
                         <input class="form-styling field-date" type="date" name="fech_na"/>
                         <label for="tel">TELÉFONO</label>
-                        <input class="form-styling" type="text"minlength="8" maxlength="10" pattern="[0-9]+"  name="tel" placeholder="Digite el teléfono"/>
+                        <input class="form-styling" type="text" minlength="8" maxlength="10" name="tel" placeholder="Digite el teléfono" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
                         <input type="submit" class="btn-signin" value="REGISTRAR" onclick="validarRegistroU(event)">
                     </form>
                 </div>
