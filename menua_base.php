@@ -60,6 +60,7 @@ if ($_SESSION['usuario']) {
             //crear el objeto de la clase base
             $base = new Base();
             $reg = $base->verbase();
+            $das =$base->verbaseinactiva();
         ?>
         <div class="container">
             <div class="card">
@@ -84,6 +85,9 @@ if ($_SESSION['usuario']) {
         <div class="table-responsive">
             <table id="base" class="table table-bordered table-striped">
                 <thead>
+                <tr align="center">
+                <th colspan="6">Bases activas</th>
+            </tr>
                     <tr align="center">
                         <th>NOMBRE</th>
                         <th>OPCIONES</th>
@@ -97,6 +101,35 @@ if ($_SESSION['usuario']) {
                     ?>
                             <td class='d-flex align-items-center justify-content-center'>
                                 <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick="eliminar('eliminar_base.php?id=<?php echo $reg[$i]['nombre']; ?>')">
+                                <span class="material-symbols-outlined">delete_sweep</span>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive">
+            <table id="base" class="table table-bordered table-striped">
+                <thead>
+                <tr align="center">
+                <th colspan="6">Bases Inactivas</th>
+            </tr>
+                    <tr align="center">
+                        <th>NOMBRE</th>
+                        <th>OPCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    for ($i = 0; $i < count($das); $i++) {
+                        echo "<tr class='align-middle'>
+                            <td>" . $das[$i]['nombre'] . "</td>";
+                    ?>
+                            <td class='d-flex align-items-center justify-content-center'>
+                                <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick="eliminar('eliminar_base.php?id=<?php echo $das[$i]['nombre']; ?>')">
                                 <span class="material-symbols-outlined">delete_sweep</span>
                             </td>
                         </tr>
