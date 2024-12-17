@@ -39,13 +39,23 @@
                 }
                 public function veralp()
                 {
-                    $sql = "select * from persona";
+                    $sql = "select * from persona where activo=1";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     //recorrer la tabla alumnos
                     while ($row = mysqli_fetch_assoc($res)) {
                         $this->pers[] = $row;
                     }
                     return $this->pers;
+                }
+                public function veralpinc(){
+                    $this->persinc = array();
+                    $sql="SELECT * FROM persona where activo=0";
+                    $res = mysqli_query(Conectar::conec(), $sql);
+                    //recorrer la tabla alumnos
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        $this->persinc[] = $row;
+                    }
+                    return $this->persinc;
                 }
                     public function insertpers($cod, $nom, $base, $tipo_per,$h_vuelo)
                     {
@@ -131,7 +141,7 @@
                 //metodo eliminar
                 public function eliminarpers($id)
                 {
-                    $sql = "delete from persona where codigo='$id'";
+                    $sql = "update persona set activo=0  where codigo='$id'";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>
@@ -411,13 +421,15 @@
                 }
                 public function vervueloinactivo()
                 {
-                    $sql = "select * from vuelo where activo=0";
+                    // Inicializar la propiedad de vuelos inactivos
+                    $this->vueloInactivo = array();
+                    $sql = "SELECT * FROM vuelo WHERE activo = 0";
                     $res = mysqli_query(Conectar::conec(), $sql);
-                    //recorrer la tabla alumnos
+                    // Recorrer los resultados y almacenarlos en la propiedad $vueloInactivo
                     while ($row = mysqli_fetch_assoc($res)) {
-                        $this->vuelo[] = $row;
+                        $this->vueloInactivo[] = $row;
                     }
-                    return $this->vuelo;
+                    return $this->vueloInactivo;
                 }
                 public function insertvuelo($cod, $org, $dest, $hora, $fecha, $avion)
                 {
