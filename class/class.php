@@ -141,7 +141,7 @@
                 //metodo eliminar
                 public function eliminarpers($id)
                 {
-                    $sql = "update persona set activo=0  where codigo='$id'";
+                    $sql = "update persona set activo=0 where codigo='$id'";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>
@@ -318,7 +318,7 @@
                 }
                 public function verbase()
                 {
-                    $sql = "select * from base";
+                    $sql = "select * from base where activo=1";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     //recorrer la tabla alumnos
                     while ($row = mysqli_fetch_assoc($res)) {
@@ -326,6 +326,20 @@
                     }
                     return $this->base;
                 }
+
+                public function verbaseinactiva()
+                {
+                    $this->baseinactiva = array();
+                    $sql = "SELECT * from base where activo=0";
+                    $res = mysqli_query(Conectar::conec(), $sql);
+                    //recorrer la tabla alumnos
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        $this->baseinactiva[] = $row;
+                    }
+                    return $this->baseinactiva;
+                }
+
+                
                 public function insertbase($nom)
                 {
                     // Escapar el valor para prevenir inyección SQL
@@ -385,7 +399,7 @@
                 //metodo eliminar
                 public function eliminarbase($nom)
                 {
-                    $sql = "delete from base where nombre='$nom'";
+                    $sql = "update base set activo=0 where nombre='$nom'";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>
