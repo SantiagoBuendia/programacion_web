@@ -60,13 +60,14 @@ if ($_SESSION['usuario']) {
         <?php
         //crear el objeto de la clase avión
         $avion = new Avion();
-        $lstavion = $avion->veravion();
+        $lstavion = $avion->veravionactivo();
         ?>
         <div class="container">
             <div class="card">
                 <div class="card-header bg-info">
                     <h3 class="text-white text-center">GESTIÓN DE VUELO <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
                 </div>
+
                 <div class="card-body">
                     <form name="form" action="insert_vuelo.php" method="post">
                         <div class="row">
@@ -110,46 +111,102 @@ if ($_SESSION['usuario']) {
             </div>
         </div>
         <?php
-        //crear el objeto de la clase vuelo
-        $vuelo = new Vuelo();
-        $reg = $vuelo->vervuelo();
-        ?>
-        <div class="table-responsive">
-            <table id="pers" class="table table-bordered table-striped">
-                <thead>
-                    <tr align="center">
-                        <th>NÚMERO DE VUELO</th>
-                        <th>ORIGEN</th>
-                        <th>DESTINO</th>
-                        <th>HORA</th>
-                        <th>FECHA</th>
-                        <th>AVIÓN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    for ($i = 0; $i < count($reg); $i++) {
-                        echo "<tr class='align-middle'>
-                            <td>" . $reg[$i]['num_vuelo'] . "</td>
-                            <td>" . $reg[$i]['origen'] . "</td>
-                            <td>" . $reg[$i]['destino'] . "</td>
-                            <td>" . $reg[$i]['hora'] . "</td>
-                            <td>" . $reg[$i]['fecha'] . "</td>
-                            <td>" . $reg[$i]['id_avion'] . "</td>";
-                    ?>
+// Obtener los vuelos activos e inactivos
+$vuelo = new Vuelo();
+$reg = $vuelo->vervueloactivo();
+$das = $vuelo->vervueloinactivo();
+?>
+
+<div class="table-responsive">
+    <table id="pers" class="table table-bordered table-striped">
+        <thead>
+            <tr align="center">
+                <th colspan="6">Vuelos Activos</th>
+            </tr>
+            <tr align="center">
+                <th>NÚMERO DE VUELO</th>
+                <th>ORIGEN</th>
+                <th>DESTINO</th>
+                <th>HORA</th>
+                <th>FECHA</th>
+                <th>AVIÓN</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (count($reg) > 0) {
+                foreach ($reg as $vueloActivo) {
+                    echo "<tr class='align-middle'>
+                            <td>" . $vueloActivo['num_vuelo'] . "</td>
+                            <td>" . $vueloActivo['origen'] . "</td>
+                            <td>" . $vueloActivo['destino'] . "</td>
+                            <td>" . $vueloActivo['hora'] . "</td>
+                            <td>" . $vueloActivo['fecha'] . "</td>
+                            <td>" . $vueloActivo['id_avion'] . "</td>
                             <td class='d-flex align-items-center justify-content-evenly'>
-                                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location="./editar_vuelo.php?id=<?php echo $reg[$i]['num_vuelo']; ?>">
-                                    <span class="material-symbols-outlined">edit_square</span>
-                                    <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick="eliminar('eliminar_vuelo.php?id=<?php echo $reg[$i]['num_vuelo']; ?>')">
-                                        <span class="material-symbols-outlined">delete_sweep</span>
+                                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location='./editar_vuelo.php?id=" . $vueloActivo['num_vuelo'] . "'>
+                                    <span class='material-symbols-outlined'>edit_square</span>
+                                </button>
+                                <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick='eliminar(\"eliminar_vuelo.php?id=" . $vueloActivo['num_vuelo'] . "\")'>
+                                    <span class='material-symbols-outlined'>delete_sweep</span>
+                                </button>
                             </td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+                        </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7' class='text-center'>No hay vuelos activos disponibles.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table id="pers" class="table table-bordered table-striped">
+        <thead>
+            <tr align="center">
+                <th colspan="6">Vuelos Inactivos</th>
+            </tr>
+            <tr align="center">
+                <th>NÚMERO DE VUELO</th>
+                <th>ORIGEN</th>
+                <th>DESTINO</th>
+                <th>HORA</th>
+                <th>FECHA</th>
+                <th>AVIÓN</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (count($das) > 0) {
+                foreach ($das as $vueloInactivo) {
+                    echo "<tr class='align-middle'>
+                            <td>" . $vueloInactivo['num_vuelo'] . "</td>
+                            <td>" . $vueloInactivo['origen'] . "</td>
+                            <td>" . $vueloInactivo['destino'] . "</td>
+                            <td>" . $vueloInactivo['hora'] . "</td>
+                            <td>" . $vueloInactivo['fecha'] . "</td>
+                            <td>" . $vueloInactivo['id_avion'] . "</td>
+                            <td class='d-flex align-items-center justify-content-evenly'>
+                                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location='./editar_vuelo.php?id=" . $vueloInactivo['num_vuelo'] . "'>
+                                    <span class='material-symbols-outlined'>edit_square</span>
+                                </button>
+                                <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick='eliminar(\"eliminar_vuelo.php?id=" . $vueloInactivo['num_vuelo'] . "\")'>
+                                    <span class='material-symbols-outlined'>delete_sweep</span>
+                                </button>
+                            </td>
+                        </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7' class='text-center'>No hay vuelos inactivos disponibles.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <script src="./sw/dist/sweetalert2.min.js"></script>
         <script src="./js/jquery-3.6.1.min.js"></script>

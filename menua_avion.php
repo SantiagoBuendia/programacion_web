@@ -56,6 +56,7 @@ if ($_SESSION['usuario']) {
                 </div>
             </div>
         </nav>
+
         <?php
         //crear el objeto de la clase base
         $base = new Base();
@@ -99,39 +100,84 @@ if ($_SESSION['usuario']) {
         <?php
         //crear el objeto de la clase Avión
         $avion = new Avion();
-        $reg = $avion->veravion();
+        $reg = $avion->veravionactivo();
+        $das = $avion->veravioninactivo(); //
         ?>
         <div class="table-responsive">
-            <table id="avion" class="table table-bordered table-striped">
-                <thead>
-                    <tr align="center">
-                        <th>CÓDIGO</th>
-                        <th>TIPO</th>
-                        <th>BASE MANTENIMIENTO</th>
-                        <th>OPCIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    for ($i = 0; $i < count($reg); $i++) {
-                        echo "<tr class='align-middle'>
-                            <td>" . $reg[$i]['codigo'] . "</td>
-                            <td>" . $reg[$i]['tipo'] . "</td>
-                            <td>" . $reg[$i]['id_base'] . "</td>";
-                    ?>
-                            <td class='d-flex align-items-center justify-content-evenly'>
-                                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location="./editar_avion.php?id=<?php echo $reg[$i]['codigo']; ?>">
-                                    <span class="material-symbols-outlined">edit_square</span>
-                                <button class='btn btn-primary d-flex align-items-center justify-content-center' onclick="eliminar('eliminar_avion.php?id=<?php echo $reg[$i]['codigo']; ?>')">
-                                    <span class="material-symbols-outlined">delete_sweep</span>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+    <table id="avion" class="table table-bordered table-striped">
+        <thead>
+            <tr align="center">
+                <th colspan="4">Aviones Activos</th>
+            </tr>
+            <tr align="center">
+                <th>CÓDIGO</th>
+                <th>TIPO</th>
+                <th>BASE MANTENIMIENTO</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Mostrar aviones activos
+            for ($i = 0; $i < count($reg); $i++) {
+                echo "<tr class='align-middle'>
+                    <td>" . $reg[$i]['codigo'] . "</td>
+                    <td>" . $reg[$i]['tipo'] . "</td>
+                    <td>" . $reg[$i]['id_base'] . "</td>";
+                ?>
+                <td class='d-flex align-items-center justify-content-evenly'>
+                    <button class='btn btn-warning' onclick="window.location='./editar_avion.php?id=<?php echo $reg[$i]['codigo']; ?>'">
+                        <span class="material-symbols-outlined">edit_square</span>
+                    </button>
+                    <button class='btn btn-primary' onclick="eliminar('./eliminar_avion.php?id=<?php echo $reg[$i]['codigo']; ?>')">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                    </button>
+                </td>
+                </tr>
+            <?php
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table id="avion_inactivo" class="table table-bordered table-striped">
+        <thead>
+            <tr align="center">
+                <th colspan="4">Aviones Inactivos</th>
+            </tr>
+            <tr align="center">
+                <th>CÓDIGO</th>
+                <th>TIPO</th>
+                <th>BASE MANTENIMIENTO</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Mostrar aviones inactivos
+            for ($i = 0; $i < count($das); $i++) {
+                echo "<tr class='align-middle'>
+                    <td>" . $das[$i]['codigo'] . "</td>
+                    <td>" . $das[$i]['tipo'] . "</td>
+                    <td>" . $das[$i]['id_base'] . "</td>";
+                ?>
+                <td class='d-flex align-items-center justify-content-evenly'>
+                    <button class='btn btn-warning' onclick="window.location='./editar_avion.php?id=<?php echo $das[$i]['codigo']; ?>'">
+                        <span class="material-symbols-outlined">edit_square</span>
+                    </button>
+                    <button class='btn btn-primary' onclick="eliminar('./eliminar_avion.php?id=<?php echo $das[$i]['codigo']; ?>')">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                    </button>
+                </td>
+                </tr>
+            <?php
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <script src="./sw/dist/sweetalert2.min.js"></script>
         <script src="./js/jquery-3.6.1.min.js"></script>

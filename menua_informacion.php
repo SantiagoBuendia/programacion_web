@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-  <div>
+    <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="menua.php">Personal</a>
+        <a class="navbar-brand" href="menua_avion.php">Personal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,61 +37,14 @@
         </div>
       </div>
     </nav>
+    </div>
     <div class="container">
       <div class="card">
         <div class="card-header bg-info">
           <h3 class="text-white text-center">GESTION DE INFORMACIÓN <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
         </div>
-      </div>
-      <?php
-      //crear el objeto de la clase información
-      $informacion = new informacion();
-      $reg = $informacion->ver();
-      ?>
-      <div class="table-responsive">
-        <table id="pers" class="table table-bordered table-striped">
-          <thead>
-            <tr align="center">
-              <th>NÚMERO DE VUELO</th>
-              <th>ORIGEN</th>
-              <th>DESTINO</th>
-              <th>FECHA</th>
-              <th>HORA</th>
-              <th>CÓDIGO AVION</th>
-              <th>TIPO DE AVION</th>
-              <th>NOMBRE PILOTO</th>
-              <th>MIEMBRO TRIPULACION</th>
-              <th>HORAS DE VUELO</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            for ($i = 0; $i < count($reg); $i++) {
-              echo "<tr>
-                <td>" . $reg[$i]['NumeroDeVuelo'] . "</td>
-                <td>" . $reg[$i]['Origen'] . "</td>
-                <td>" . $reg[$i]['Destino'] . "</td>
-                <td>" . $reg[$i]['Fecha'] . "</td>
-                <td>" . $reg[$i]['Hora'] . "</td>
-                <td>" . $reg[$i]['CodigoAvion'] . "</td>
-                <td>" . $reg[$i]['TipoAvion'] . "</td>
-                <td>" . $reg[$i]['NombrePiloto'] . "</td>
-                <td>" . $reg[$i]['MiembrosTripulacion'] . "</td>
-                <td>" . $reg[$i]['horaVuelo'] . "</td>";
-            ?>
-              </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-  </div>
-    <script src="./bootstrap/js/bootstrap.min.js"></script>
-    <script src="./sw/dist/sweetalert2.min.js"></script>
-    <script src="./js/jquery-3.6.1.min.js"></script>
-</body>
-</html>
+    </div>
+<div>
 <?php
 include('class/class.php'); // Incluir la clase de conexión
 
@@ -110,7 +63,9 @@ $piloto = isset($_POST['piloto']) ? $_POST['piloto'] : '';
 
 // Formulario de búsqueda
 echo '<form method="POST" action="">
-    <label for="num_vuelo">Número de vuelo:</label>
+
+  <div class="col-md-12">
+      <label for="num_vuelo">Número de vuelo:</label>
     <input type="text" name="num_vuelo" id="num_vuelo" value="' . $num_vuelo . '">
 
     <label for="origen">Origen:</label>
@@ -135,23 +90,31 @@ echo '<form method="POST" action="">
     <input type="text" name="piloto" id="piloto" value="' . $piloto . '">
 
     <button type="submit">Buscar</button>
+  </div>
+
 </form>';
 
 echo '<br>';
 
 // Consulta SQL básica
-$query = "SELECT v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, v.id_avion,
-                 a.tipo AS tipo_avion, p.nombre AS piloto,
-                 GROUP_CONCAT(DISTINCT mb.nombre SEPARATOR ', ') AS MiembrosTripulacion
-          FROM vuelo v
-          JOIN avion a ON v.id_avion = a.codigo
-          JOIN piloto pi ON v.num_vuelo = pi.num_vuelo
-          JOIN persona p ON pi.codigo = p.codigo
-          LEFT JOIN miembro m ON v.num_vuelo = m.num_vuelo
-          LEFT JOIN persona mb ON m.codigo = mb.codigo
-          WHERE 1=1
-          GROUP BY v.num_vuelo, v.origen, v.destino, v.fecha, 
-                v.hora, a.codigo, a.tipo, p.nombre;"; // Condición base para facilitar agregar filtros
+$query = "SELECT 
+    v.num_vuelo, 
+    v.origen, 
+    v.destino, 
+    v.fecha, 
+    v.hora, 
+    v.id_avion, 
+    a.tipo AS tipo_avion, 
+    p.nombre AS piloto, 
+    pi.horas_vuelo AS horas_piloto, 
+    GROUP_CONCAT(m_persona.nombre SEPARATOR ', ') AS miembros_tripulacion
+FROM vuelo v
+JOIN avion a ON v.id_avion = a.codigo
+JOIN piloto pi ON v.num_vuelo = pi.num_vuelo
+JOIN persona p ON pi.codigo = p.codigo
+LEFT JOIN miembro m ON v.num_vuelo = m.num_vuelo
+LEFT JOIN persona m_persona ON m.codigo = m_persona.codigo
+WHERE 1 = 1";  // Condición base para facilitar agregar filtros
 
 // Añadir filtros a la consulta si es necesario
 if (!empty($num_vuelo)) {
@@ -179,13 +142,17 @@ if (!empty($piloto)) {
     $query .= " AND p.nombre LIKE '%$piloto%'";
 }
 
+// Añadir la cláusula GROUP BY para evitar errores de agregación
+$query .= " GROUP BY v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, v.id_avion, a.tipo, p.nombre, pi.horas_vuelo;";
+
 // Ejecutar la consulta
 $result = mysqli_query($conn, $query);
+
 
 // Verificar si hay resultados
 if (mysqli_num_rows($result) > 0) {
     // Mostrar los resultados en una tabla
-    echo "<table border='1'>
+    echo "<table class='table'border='1'>
             <tr>
                 <th>Número de vuelo</th>
                 <th>Origen</th>
@@ -196,6 +163,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th>Tipo de avión</th>
                 <th>Nombre de piloto</th>
                 <th>Miembro de tripulacion</th>
+                <th>Horas de vuelo Piloto</th>
             </tr>";
     while($row = mysqli_fetch_assoc($result)) {
         echo "<tr>
@@ -207,7 +175,8 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . $row["id_avion"] . "</td>
                 <td>" . $row["tipo_avion"] . "</td>
                 <td>" . $row["piloto"] . "</td>
-                <td>" . $row["MiembrosTripulacion"] . "</td>
+                <td>". $row["miembros_tripulacion"]. "</td>
+                <td>" .$row["horas_piloto"] . "</td>
               </tr>";
     }
     echo "</table>";
