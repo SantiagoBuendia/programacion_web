@@ -61,7 +61,7 @@ class Nuevo
                     });
                 </script>";
         }else{
-            $sql="insert into usuario values ('$correo', '$nombre', '$contraseña', '$fecha_nacimiento', 'usuario', $telefono)";
+            $sql="insert into usuario values ('$correo', '$nombre', '$contraseña', '$fecha_nacimiento', 'usuario', $telefono, NULL)";
             $res=mysqli_query(Conectar::conec(),$sql);
             echo "
             <script type='text/javascript'>

@@ -23,10 +23,10 @@
             <div ng-app ng-init="checked = false">
                 <form class="form-signin" action="" method="POST">
                     <label for="token">Token de Verificación:</label>
-                    <input class="form-styling" type="text" id="token" name="token" required>
+                    <input class="form-styling" type="text" id="token" name="token">
                     <br>
                     <label for="nueva_contraseña">Nueva Contraseña:</label>
-                    <input class="form-styling" type="password" id="nueva_contraseña" name="nueva_contraseña" required>
+                    <input class="form-styling" type="password" id="nueva_contraseña" name="nueva_contraseña">
                     <br>
                     <button class="btn-signin" type="submit">Actualizar Contraseña</button>
                 </form>
@@ -68,12 +68,38 @@ if (isset($_POST['correo_recuperar'])) {
 
         // Usar la función mail() para enviar el correo
         if (mail($to, $subject, $message, $headers)) {
-            echo "Se ha enviado un correo con el enlace para recuperar tu contraseña.";
+            echo "<script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'info',
+                        title: '¡Recuperar contraeña!',
+                        text: 'Se ha enviado un correo con el enlace para recuperar tu contraseña.'
+                    });
+                </script>";
         } else {
-            echo "Hubo un problema al enviar el correo.";
+            echo "<script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Recuperar contraeña!',
+                        text: 'Hubo un problema al enviar el correo.'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location='./index.php';
+                        }
+                    });
+                </script>";
         }
     } else {
-        echo "El correo no está registrado.";
+        echo "<script type='text/javascript'>
+                Swal.fire({
+                    icon: 'info',
+                    title: '¡Recuperar contraeña!',
+                    text: 'El correo no está registrado.'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location='./index.php';
+                    }
+                });
+            </script>";
     }
 }
 ?>
@@ -106,13 +132,34 @@ if (isset($_POST['token']) && isset($_POST['nueva_contraseña'])) {
             // Marcar el token como utilizado
             $update_token_sql = "UPDATE usuario SET token_recuperacion = '' WHERE token_recuperacion = '$token'";
             mysqli_query($conexion, $update_token_sql);
-
-            echo "La contraseña ha sido actualizada exitosamente.";
+            echo "<script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Recuperar contraeña!',
+                        text: 'La contraseña ha sido actualizada exitosamente.'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location='./index.php';
+                        }
+                    });
+                </script>";
         } else {
-            echo "Hubo un problema al actualizar la contraseña.";
+            echo "<script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Recuperar contraeña!',
+                        text: 'Hubo un problema al actualizar la contraseña.'
+                    });
+                </script>";
         }
     } else {
-        echo "El token no es válido o ha expirado.";
+        echo "<script type='text/javascript'>
+                Swal.fire({
+                    icon: 'info',
+                    title: '¡Recuperar contraeña!',
+                    text: 'El token no es válido o ha expirado.'
+                });
+            </script>";
     }
 }
 ?>

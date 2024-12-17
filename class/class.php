@@ -18,7 +18,7 @@
                 {
                     $host = "localhost";
                     $user = "root";
-                    $pass = "123456";
+                    $pass = "";
                     $db_name = "bd_aerea";
                     //conectarnos a la BD
                     $link = mysqli_connect($host, $user, $pass)
@@ -131,23 +131,29 @@
                 }
 
                 // Metodo ver pilotos o miembros
-                // public function verPilo_Miem($clase)
-                // {
-                //     if($clase == 'piloto'){
-                //         $sql = "select codigo, concat(codigo, ', ', pe.nombre) as 'PerPiloto'
-                //                 from persona
-                //                 where perfil = 'piloto";
-                //     }else{
-                //         $sql = "select codigo, concat(codigo, ', ', pe.nombre) as 'PerPiloto'
-                //                 from persona
-                //                 where perfil = 'miembro";
-                //     }
-                //     $res = mysqli_query(Conectar::conec(), $sql);
-                //     while ($row = mysqli_fetch_assoc($res)) {
-                //         $this->pers[] = $row;
-                //     }
-                //     return $this->pers;
-                // }
+                public function verPilo_Miem($clase)
+                {
+                    $sql;
+                    if($clase == 'piloto'){
+                        $sql = "select codigo, concat(codigo, ', ', nombre) AS 'PerPiloto'
+                                from persona
+                                where perfil = 'piloto'";
+                    }else{
+                        $sql = "select codigo, concat(codigo, ', ', nombre) AS 'PerMiembro'
+                                from persona
+                                where perfil = 'miembro'";
+                    }
+                    $res = mysqli_query(Conectar::conec(), $sql);
+                    if (!$res) {
+                        die("Error en la consulta: " . mysqli_error(Conectar::conec()));
+                    }
+                
+                    $this->pers = []; // Asegúrate de inicializar la variable antes de llenarla
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        $this->pers[] = $row;
+                    }
+                    return $this->pers;
+                }
             }
             class Avion
             {
@@ -286,7 +292,7 @@
                                 });
                             </script>";
                     }else{
-                        $sql = "insert into base values('$nom')";
+                        $sql = "INSERT INTO base (nombre) VALUES ('$nom')";
                         $res = mysqli_query(Conectar::conec(), $sql);
                         echo "
                             <script type='text/javascript'>
@@ -306,7 +312,7 @@
                 //metodo para obtener datos por el nombre de la base
                 public function get_ida($id)
                 {
-                    $sql = "select * from base where nombre='$id'";
+                    $sql = "select * from base where nombre = '$id'";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     if ($row = mysqli_fetch_assoc($res)) {
                         $this->base[] = $row;
@@ -369,7 +375,7 @@
                                 });
                             </script>";
                     }else{
-                        $sql = "insert into vuelo values('$cod','$org','$dest','$hora','$fecha','$avion')";
+                        $sql = "INSERT INTO vuelo (num_vuelo,origen,destino,hora,fecha,id_avion) VALUES('$cod','$org','$dest','$hora','$fecha','$avion');";
                         $res = mysqli_query(Conectar::conec(), $sql);
                         echo "
                             <script type='text/javascript'>
@@ -454,7 +460,7 @@
                 }
                 public function insertpiloto($cod, $num, $horas)
                 {
-                    $sql = "insert into piloto values('$cod','$num','$horas')";
+                    $sql = "insert into piloto values('$cod','$horas', '$num')";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     echo "
                         <script type='text/javascript'>
@@ -587,7 +593,7 @@
                         a.tipo AS TipoAvion,
                         p.nombre AS NombrePiloto,
                         GROUP_CONCAT(DISTINCT mb.nombre SEPARATOR ', ') AS MiembrosTripulacion, 
-                        pt.hora_vuelo AS horaVuelo 
+                        pt.horas_vuelo AS horaVuelo 
                         FROM 
                             vuelo v
                         JOIN 
@@ -601,7 +607,7 @@
                         LEFT JOIN 
                             persona mb ON m.codigo = mb.codigo
                         GROUP BY 
-                            v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, a.codigo, a.tipo, p.nombre, pt.hora_vuelo;";
+                            v.num_vuelo, v.origen, v.destino, v.fecha, v.hora, a.codigo, a.tipo, p.nombre, pt.horas_vuelo;";
                     $res = mysqli_query(Conectar::conec(), $sql);
                     //recorrer la tabla alumnos
                     while ($row = mysqli_fetch_assoc($res)) {

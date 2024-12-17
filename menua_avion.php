@@ -102,7 +102,7 @@ if ($_SESSION['usuario']) {
         $reg = $avion->veravion();
         ?>
         <div class="table-responsive">
-            <table id="avion" class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr align="center">
                         <th>CÓDIGO</th>

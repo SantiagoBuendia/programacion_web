@@ -96,10 +96,6 @@ if ($_SESSION['usuario']) {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="horas">HORAS DE VUELO</label>
-                                <input type="number" name="horas" class="form-control" placeholder="DIGITE LAS HORAS DE VUELO">
-                            </div>
                             <div class="col-md-12">
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO DEL PILOTO" onclick="validarCampos(event,'piloto')">
@@ -128,7 +124,7 @@ if ($_SESSION['usuario']) {
                         echo "<tr>
                             <td>" . $reg[$i]['codigo'] . "</td>
                             <td>" . $reg[$i]['num_vuelo'] . "</td>
-                            <td>" . $reg[$i]['hora_vuelo'] . "</td>";
+                            <td>" . $reg[$i]['horas_vuelo'] . "</td>";
                     ?>
                             <td align='center'>
                                 <button class='btn btn-primary' onclick="eliminar('eliminar_piloto.php?id=<?php echo $reg[$i]['codigo']; ?>&num_vuelo=<?php echo $reg[$i]['num_vuelo']; ?>')">

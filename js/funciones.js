@@ -96,8 +96,8 @@ function validarRegistroU(event){
             return false;
         }
 
-        var fechaReg = /^\d{2}-\d{2}-\d{4}$/
-        if(!fechaReg.test(signupform.fech_na.value)){
+        var fechaReg = /^\d{4}-\d{2}-\d{2}$/
+        if(!fechaReg.test(signupform.fech_na.value.trim())){
             Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
@@ -112,6 +112,24 @@ function validarRegistroU(event){
     form.submit(); 
 }
 
+// Validar campos recuperar contraseña
+function validarRecuperarContra(event){
+    event.preventDefault();
+
+    var form = document.recoPassForm;
+    if (form.correo_recuperar.value.trim() === '') {
+        Swal.fire({
+            icon: 'warning',
+            title: '¡Atención!',
+            text: 'Ingrese el correo de recuperación'
+        });
+        
+        form.correo_recuperar.value = '';
+        form.correo_recuperar.focus();
+        return false;
+    }
+    form.submit(); 
+}
 // Validar campos base
 
 function validarCampos(event, clase){
@@ -133,7 +151,7 @@ function validarCampos(event, clase){
     ];
 
     var camposAValidarBase = [
-        { nombre: 'nom', mensaje: 'Debe digitar el nombre de la base de mantenimiento' }
+        { nombre: 'nom', mensaje: 'Debe digitar el nombre de la base' }
     ];
 
     var camposAValidarVuelo = [
@@ -150,6 +168,11 @@ function validarCampos(event, clase){
         { nombre: 'num', mensaje: 'Debe seleccionar el número de vuelo' }
     ];
 
+    var camposAValidarContraseña = [
+        { nombre: 'token', mensaje: 'Debe digitar el token de recuperación'},
+        { nombre: 'nueva_contraseña', mensaje: 'Ingrese la nueva contraseña' }
+    ];
+
     var camposAValidar;
 
     if(clase == 'personal'){
@@ -162,6 +185,8 @@ function validarCampos(event, clase){
         camposAValidar = camposAValidarVuelo;
     }else if(clase == 'piloto' || clase == 'miembro'){
         camposAValidar = camposAValidarPilo_Miem;
+    }else if(clase == 'contrseña'){
+        camposAValidar = camposAValidarContraseña;
     }
 
     for (var i = 0; i < camposAValidar.length; i++) {
