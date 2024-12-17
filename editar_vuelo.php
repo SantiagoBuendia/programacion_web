@@ -2,12 +2,14 @@
 include('./class/class.php');
 //creamos el objeto de la clase Alumnos
 $vuelo = new Vuelo();
+
 if (isset($_POST['grabar']) && $_POST['grabar'] == "si") {
     $vuelo->editarvuelo($_POST['cod'], $_POST['org'], $_POST['dest'], $_POST['hora'], $_POST['fecha'], $_POST['avion']);
     exit();
 }
 $reg = $vuelo->get_ida($_GET['id']);
 ?>
+
 <!doctype html>
 <html lang="es">
 

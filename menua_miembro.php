@@ -59,11 +59,13 @@ if ($_SESSION['usuario']) {
         <?php
             //crear el objeto de la clase vuelo
             $vuelo = new Vuelo();
-            $lstvuelo = $vuelo->vervuelo();
+            $lstvuelo = $vuelo->vervueloactivo();
 
             //crear el objeto de la clase vuelo
             $perMiembro = new Personal();
             $lstperMiembro = $perMiembro->verPilo_Miem('miembro');
+            $miembro = new Miembro();
+            $reg = $miembro->vermiembro();
         ?>
         <div class="container">
             <div class="card">
@@ -71,18 +73,18 @@ if ($_SESSION['usuario']) {
                     <h3 class="text-white text-center">GESTIÓN DE MIEMBRO <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
                 </div>
                 <div class="card-body">
-                    <form name="form" action="insert_miembro.php" method="post">
+                    <form  action="insert_miembro.php" method="post">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="cod">CÓDIGO DEL MIEMBRO</label>
+                                <label for="miembro">CÓDIGO DEL MIEMBRO</label>
                                 <select name="cod" class="form-select">
-                                    <option value="" disabled selected>SELECCIONE CÓDIGO DEL MIEMBRO</option>
-                                    <?php
-                                        for ($i = 0; $i < count($lstperMiembro); $i++) {
-                                            echo "<option value='" . $lstperMiembro[$i]['codigo']. "'>" . $lstperMiembro[$i]['PerMiembro'] . "</option>";
-                                        }
-                                    ?>
-                                </select>
+                                <option value="">SELECCIONE CÓDIGO DEL PILOTO</option>
+                                <?php
+                                for ($i = 0; $i < count($lstperMiembro); $i++) {
+                                    echo "<option value='" . $lstperMiembro[$i]['codigo'] . "'>" . $lstperMiembro[$i]['PerPiloto'] . "</option>";
+                                }
+                                ?>
+                            </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="num">NÚMERO DE VUELO</label>
@@ -97,7 +99,7 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO DEL MIEMBRO" onclick="validarCampos(event,'miembro')">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO DEL MIEMBRO" >
                             </div>
                     </form>
                 </div>

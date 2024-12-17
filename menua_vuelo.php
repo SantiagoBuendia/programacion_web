@@ -60,13 +60,14 @@ if ($_SESSION['usuario']) {
         <?php
         //crear el objeto de la clase avión
         $avion = new Avion();
-        $lstavion = $avion->veravion();
+        $lstavion = $avion->veravionactivo();
         ?>
         <div class="container">
             <div class="card">
                 <div class="card-header bg-info">
                     <h3 class="text-white text-center">GESTIÓN DE VUELO <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
                 </div>
+
                 <div class="card-body">
                     <form name="form" action="insert_vuelo.php" method="post">
                         <div class="row">
@@ -112,8 +113,9 @@ if ($_SESSION['usuario']) {
         <?php
         //crear el objeto de la clase vuelo
         $vuelo = new Vuelo();
-        $reg = $vuelo->vervuelo();
+        $reg = $vuelo->vervueloactivo();
         ?>
+
         <div class="table-responsive">
             <table id="pers" class="table table-bordered table-striped">
                 <thead>

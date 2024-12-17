@@ -58,13 +58,13 @@ if ($_SESSION['usuario']) {
             </div>
         </nav>
         <?php
-            //crear el objeto de la clase vuelo
-            $vuelo = new Vuelo();
-            $lstvuelo = $vuelo->vervuelo();
 
-            //crear el objeto de la clase vuelo
-            $perPiloto = new Personal();
-            $lstperPiloto = $perPiloto->verPilo_Miem('piloto');
+        $vuelo = new Vuelo();
+        $lstvuelo = $vuelo->vervueloactivo();
+
+        $perPiloto = new Personal();
+        $lstperPiloto = $perPiloto->verPilo_Miem('piloto');
+
         ?>
         <div class="container">
             <div class="card">
@@ -72,18 +72,18 @@ if ($_SESSION['usuario']) {
                     <h3 class="text-white text-center">GESTIÓN DE PILOTO <a class="btn btn-outline-light text-end" href="./salir.php">SALIR</a></h3>
                 </div>
                 <div class="card-body">
-                    <form name="form" action="insert_piloto.php" method="post">
+                    <form  action="insert_piloto.php" method="post">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="cod">CÓDIGO DEL PILOTO</label>
+                            <label for="piloto">Selecciona un piloto:</label>
                                 <select name="cod" class="form-select">
-                                    <option value="" disabled selected>SELECCIONE CÓDIGO DEL PILOTO</option>
-                                    <?php
+                                <option value=""> Selecciona un piloto </option>
+                                <?php
                                         for ($i = 0; $i < count($lstperPiloto); $i++) {
-                                            echo "<option value='" . $lstperPiloto[$i]['codigo']. "'>" . $lstperPiloto[$i]['PerPiloto'] . "</option>";
+                                            echo "<option value='" . $lstperPiloto[$i]['codigo']. "'>" . $lstperPiloto[$i]['PerPiloto'] ./*$lstperPiloto[$i]['codigo'] .*/ "</option>";
                                         }
                                     ?>
-                                </select>
+                             </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="num">NÚMERO DE VUELO</label>
@@ -102,7 +102,7 @@ if ($_SESSION['usuario']) {
                             </div>
                             <div class="col-md-12">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO DEL PILOTO" onclick="validarCampos(event,'piloto')">
+                                <input type="submit" class="btn btn-primary" value="REGISTRAR VUELO DEL PILOTO" >
                             </div>
                     </form>
                 </div>
@@ -112,14 +112,15 @@ if ($_SESSION['usuario']) {
         //crear el objeto de la clas Alumnos
         $piloto = new Piloto();
         $reg = $piloto->verpiloto();
+
         ?>
         <div class="table-responsive">
             <table id="pers" class="table table-bordered table-striped">
                 <thead>
                     <tr align="center">
                         <th>CÓDIGO</th>
-                        <th>NÚMERO DE VUELO</th>
                         <th>HORAS DE VUELO</th>
+                        <th>NÚMERO DE VUELO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,8 +128,9 @@ if ($_SESSION['usuario']) {
                     for ($i = 0; $i < count($reg); $i++) {
                         echo "<tr>
                             <td>" . $reg[$i]['codigo'] . "</td>
-                            <td>" . $reg[$i]['num_vuelo'] . "</td>
-                            <td>" . $reg[$i]['hora_vuelo'] . "</td>";
+                            <td>" . $reg[$i]['horas_vuelo'] . "</td>
+                            <td>" . $reg[$i]['num_vuelo'] . "</td>";
+                            
                     ?>
                             <td align='center'>
                                 <button class='btn btn-primary' onclick="eliminar('eliminar_piloto.php?id=<?php echo $reg[$i]['codigo']; ?>&num_vuelo=<?php echo $reg[$i]['num_vuelo']; ?>')">
