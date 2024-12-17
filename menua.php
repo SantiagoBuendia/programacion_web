@@ -118,10 +118,14 @@ if ($_SESSION['usuario']) {
     //crear el objeto de la clase personal
     $pers = new Personal();
     $reg = $pers->veralp();
+    $das = $pers->veralpinc();
     ?>
     <div class="table-responsive">
       <table id="pers" class="table table-bordered table-striped">
         <thead>
+        <tr align="center">
+                <th colspan="6">Personal en estado activo</th>
+            </tr>
           <tr align="center">
             <th>CÓDIGO</th>
             <th>NOMBRE</th>
@@ -140,6 +144,40 @@ if ($_SESSION['usuario']) {
                 <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location="./editarp.php?id=<?php echo $reg[$i]['codigo']; ?>">
                   <span class="material-symbols-outlined">edit_square</span>
                   <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $reg[$i]['codigo']; ?>')">
+                    <span class="material-symbols-outlined">delete_sweep</span>
+              </td>
+            </tr>
+          <?php
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-responsive">
+      <table id="pers" class="table table-bordered table-striped">
+        <thead>
+        <tr align="center">
+                <th colspan="6">Personal en estado inactivo</th>
+            </tr>
+          <tr align="center">
+            <th>CÓDIGO</th>
+            <th>NOMBRE</th>
+            <th>BASE DE REGRESO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          for ($i = 0; $i < count($das); $i++) {
+            echo "<tr class='align-middle'>
+              <td>" . $das[$i]['codigo'] . "</td>
+              <td>" . $das[$i]['nombre'] . "</td>
+              <td>" . $das[$i]['id_base'] . "</td>";
+          ?>
+              <td class='d-flex align-items-center justify-content-evenly'>
+                <button class='btn btn-warning d-flex align-items-center justify-content-center' onclick=window.location="./editarp.php?id=<?php echo $das[$i]['codigo']; ?>">
+                  <span class="material-symbols-outlined">edit_square</span>
+                  <button class='btn btn-primary' onclick="eliminar('eliminarp.php?id=<?php echo $das[$i]['codigo']; ?>')">
                     <span class="material-symbols-outlined">delete_sweep</span>
               </td>
             </tr>
